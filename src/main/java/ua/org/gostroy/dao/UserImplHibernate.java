@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Created by panser on 4/16/14.
  */
-@Repository
+//@Repository
 public class UserImplHibernate implements UserDAO{
     private final Logger log = LoggerFactory.getLogger(getClass());
 

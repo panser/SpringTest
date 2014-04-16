@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.org.gostroy.dao.UserDAO;
 import ua.org.gostroy.entity.User;
+import ua.org.gostroy.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,8 @@ public class UserService {
 
     @Autowired
     private UserDAO userDAO;
+//    @Autowired
+//    UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public User findUserById(final Integer id) {
@@ -36,25 +39,25 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Set<User> findAllUser() {
-        log.trace("Find all User in repository ...");
+        log.trace("Find all User in repositories ...");
         Set<User> users = new HashSet<User>(userDAO.findAll());
-        log.trace("Find all User in repository with countUser: " + users.size());
+        log.trace("Find all User in repositories with countUser: " + users.size());
         return users;
     }
 
     @Transactional(rollbackFor = Exception.class)
     public User saveUser(final User user) throws ConstraintViolationException {
-        log.trace("Save User in repository with id = " + user.getId() + " ...");
+        log.trace("Save User in repositories with id = " + user.getId() + " ...");
         userDAO.save(user);
-        log.trace("Saved User in repository with id = " + user.getId());
+        log.trace("Saved User in repositories with id = " + user.getId());
         return user;
     }
 
     @Transactional(rollbackFor = Exception.class)
     public User updateUser(final User user) throws ConstraintViolationException {
-        log.trace("Update User in repository with id = " + user.getId() + " ...");
+        log.trace("Update User in repositories with id = " + user.getId() + " ...");
         userDAO.update(user);
-        log.trace("Updated User in repository with id = " + user.getId());
+        log.trace("Updated User in repositories with id = " + user.getId());
         return user;
     }
 }

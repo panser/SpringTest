@@ -2,13 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:annotation-config />
     <context:component-scan base-package="ua.org.gostroy"/>
     <context:property-placeholder location="/app.properties"></context:property-placeholder>
-    <tx:annotation-driven transaction-manager="txManagerHibernate"/>
-    <!--<tx:annotation-driven transaction-manager="txManagerJPA"/>-->
+    <jpa:repositories base-package="ua.org.gostroy.repositories"/>
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="${db.jdbc.driver}"/>
@@ -63,4 +63,19 @@
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
+
+            <!--CHANGE over HIBERNATE, JPA, JDBC, Spring DataJPA-->
+<!--#############################################-->
+    <bean id="userDAO" class="ua.org.gostroy.dao.UserImplHibernate"/>
+    <tx:annotation-driven transaction-manager="txManagerHibernate"/>
+
+    <!--<bean id="userDAO" class="ua.org.gostroy.dao.UserImplJPA"/>-->
+    <!--<tx:annotation-driven transaction-manager="txManagerJPA"/>-->
+
+    <!--<bean id="userDAO" class="ua.org.gostroy.dao.UserImplJDBC"/>-->
+
+    <!--<bean id="userRepository" class="ua.org.gostroy.repositories.UserRepository"/>-->
+    <!--<tx:annotation-driven transaction-manager="txManagerJPA"/>-->
+
+    <!--#############################################-->
 </beans>
