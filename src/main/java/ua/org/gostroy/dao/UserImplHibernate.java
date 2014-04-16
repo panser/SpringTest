@@ -25,10 +25,10 @@ public class UserImplHibernate implements UserDAO{
 
     @Override
     public User find(Integer id) {
-        log.info("Find UserDAO with id = " + id + " ...");
+        log.trace("Find UserDAO with id = " + id + " ...");
         User user = (User) sessionFactory.getCurrentSession().get(User.class, id);
         if (user != null) {
-            log.info("Find UserDAO with id: " + user.getId());
+            log.trace("Find UserDAO with id: " + user.getId());
         }
         return user;
     }
@@ -36,26 +36,26 @@ public class UserImplHibernate implements UserDAO{
     @Override
     public Set<User> findAll() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
-        log.info("Find all UserDAO ...");
+        log.trace("Find all UserDAO ...");
         HashSet<User> hashSet = new HashSet<User>(criteria.list());
-        log.info("Find " + hashSet.size() + " UserDAO");
+        log.trace("Find " + hashSet.size() + " UserDAO");
         return hashSet;
     }
 
     @Override
     public Integer save(User user) {
-        log.info("Save UserDAO with id = " + user.getId() + " ...");
+        log.trace("Save UserDAO with id = " + user.getId() + " ...");
         Integer idNew = (Integer) sessionFactory.getCurrentSession().save(user);
-        log.info("Saved UserDAO with id = " + idNew);
+        log.trace("Saved UserDAO with id = " + idNew);
         return idNew;
     }
 
     @Override
     public void update(User user) {
-        log.info("Update UserDAO with id = " + user.getId() + " ...");
+        log.trace("Update UserDAO with id = " + user.getId() + " ...");
         if (user != null) {
             sessionFactory.getCurrentSession().update(user);
         }
-        log.info("Updated UserDAO");
+        log.trace("Updated UserDAO");
     }
 }

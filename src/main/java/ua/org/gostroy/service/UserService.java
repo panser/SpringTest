@@ -24,37 +24,37 @@ public class UserService {
     private UserDAO userDAO;
 
     @Transactional(readOnly = true)
-    public final User findUserById(final Integer id) {
-        log.info("Find User with id = " + id + " ...");
+    public User findUserById(final Integer id) {
+        log.trace("Find User with id = " + id + " ...");
         User user = userDAO.find(id);
         if (user != null) {
-            log.info("Find User with id: " + user.getId());
+            log.trace("Find User with id: " + user.getId());
             return user;
         }
         return null;
     }
 
     @Transactional(readOnly = true)
-    public final Set<User> findAllUser() {
-        log.info("Find all User in repository ...");
+    public Set<User> findAllUser() {
+        log.trace("Find all User in repository ...");
         Set<User> users = new HashSet<User>(userDAO.findAll());
-        log.info("Find all User in repository with countUser: " + users.size());
+        log.trace("Find all User in repository with countUser: " + users.size());
         return users;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public final User saveUser(final User user) throws ConstraintViolationException {
-        log.info("Save User in repository with id = " + user.getId() + " ...");
+    public User saveUser(final User user) throws ConstraintViolationException {
+        log.trace("Save User in repository with id = " + user.getId() + " ...");
         userDAO.save(user);
-        log.info("Saved User in repository with id = " + user.getId());
+        log.trace("Saved User in repository with id = " + user.getId());
         return user;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public final User updateUser(final User user) throws ConstraintViolationException {
-        log.info("Update User in repository with id = " + user.getId() + " ...");
+    public User updateUser(final User user) throws ConstraintViolationException {
+        log.trace("Update User in repository with id = " + user.getId() + " ...");
         userDAO.update(user);
-        log.info("Updated User in repository with id = " + user.getId());
+        log.trace("Updated User in repository with id = " + user.getId());
         return user;
     }
 }

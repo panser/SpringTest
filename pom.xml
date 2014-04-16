@@ -11,6 +11,7 @@
     <packaging>jar</packaging>
     <name>SpringDAO</name>
 
+
     <properties>
         <hibernate.version>4.3.1.Final</hibernate.version>
         <spring.version>4.0.1.RELEASE</spring.version>
@@ -18,7 +19,7 @@
         <mysql-connector.version>5.1.29</mysql-connector.version>
         <tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -61,6 +62,18 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
