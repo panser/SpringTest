@@ -6,7 +6,7 @@
 
     <context:annotation-config />
     <context:component-scan base-package="ua.org.gostroy"/>
-    <context:property-placeholder location="/app.properties"></context:property-placeholder>
+    <context:property-placeholder location="classpath:/app.properties"></context:property-placeholder>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 
