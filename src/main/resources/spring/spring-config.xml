@@ -7,8 +7,8 @@
     <context:annotation-config />
     <context:component-scan base-package="ua.org.gostroy"/>
     <context:property-placeholder location="/app.properties"></context:property-placeholder>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
+    <tx:annotation-driven transaction-manager="txManagerHibernate"/>
+    <!--<tx:annotation-driven transaction-manager="txManagerJPA"/>-->
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="${db.jdbc.driver}"/>
@@ -35,9 +35,28 @@
         </property>
     </bean>
 
-    <bean id="transactionManager"
+    <bean id="txManagerHibernate"
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="myEntityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="ua.org.gostroy.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">${db.hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${db.hibernate.show_sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${db.hibernate.hbm2ddl.auto}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="txManagerJPA" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="myEntityManager"/>
     </bean>
 
 
