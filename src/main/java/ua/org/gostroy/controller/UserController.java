@@ -33,4 +33,11 @@ public class UserController {
         return "testJSPXFindAllResume";
     }
 
+    @RequestMapping(value = {"/testTiles/findAllResume"})
+    public String testTilesFindAllResume(Model model){
+        Set<User> users = userService.findAllUser();
+        model.addAttribute("users", users);
+        return "testTilesFindAllResume";
+    }
+
 }
