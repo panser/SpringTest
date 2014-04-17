@@ -29,8 +29,6 @@ public class TestSpringMVCViewController {
 
     @RequestMapping(value = "/")
     public String indexPage(Model model){
-        Set<User> users = userService.findAllUser();
-        model.addAttribute("users", users);
         return "index";
     }
 
