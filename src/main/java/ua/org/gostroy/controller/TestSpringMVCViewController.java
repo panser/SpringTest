@@ -21,16 +21,11 @@ import java.util.Set;
  * Created by panser on 4/16/14.
  */
 @Controller
-@Transactional
+//@Transactional
 @RequestMapping("/testViews")
 public class TestSpringMVCViewController {
     @Autowired
     private UserService userService;
-
-    @RequestMapping(value = "/")
-    public String indexPage(Model model){
-        return "index";
-    }
 
     @RequestMapping(value = {"/jsp"})
     public String testJSPFindAllResume(Model model){

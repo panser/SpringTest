@@ -13,12 +13,12 @@
 <body>
 <H1>test java VIEW technology</H1>
 <ul>
-    <li><a href="jsp">jsp</a></li>
-    <li><a href="jspx">jspx</a></li>
-    <li><a href="tiles">tiles</a></li>
-    <li><a href="velocity">velocity</a></li>
-    <li><a href="freeMaker">freeMaker</a></li>
-    <li><a href="jasper">jasper</a></li>
+    <li><a href="testViews/jsp">jsp</a></li>
+    <li><a href="testViews/jspx">jspx</a></li>
+    <li><a href="testViews/tiles">tiles</a></li>
+    <li><a href="testViews/velocity">velocity</a></li>
+    <li><a href="testViews/freeMaker">freeMaker</a></li>
+    <li><a href="testViews/jasper">jasper</a></li>
 </ul>
 </body>
 </html>

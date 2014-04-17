@@ -3,9 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:resources mapping="/resources/**" location="/"/>
+    <mvc:resources mapping="/resources/**" location="/static-resources/, classpath:/META-INF/public-web-resources/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:annotation-driven/>
     <import resource="classpath:/spring/spring-config.xml"/>
+    <mvc:view-controller path="/" view-name="index"/>
 
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">

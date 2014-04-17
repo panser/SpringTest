@@ -8,6 +8,7 @@
     <context:component-scan base-package="ua.org.gostroy"/>
     <context:property-placeholder location="classpath:/app.properties"></context:property-placeholder>
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>-->
 
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
