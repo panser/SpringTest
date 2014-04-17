@@ -19,6 +19,8 @@
         <mysql-connector.version>5.1.29</mysql-connector.version>
         <tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
         <tiles.version>3.0.3</tiles.version>
+        <jasperreports.version>5.5.1</jasperreports.version>
+        <jasperreports-fonts.version>4.0.0</jasperreports-fonts.version>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -186,6 +188,17 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>${jasperreports-fonts.version}</version>
         </dependency>
 
     </dependencies>

@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -77,4 +78,17 @@ public class TestSpringMVCViewController {
         return model;
     }
 
+    @RequestMapping(value = {"/testJasper/findAllResume"})
+    public String testJasperFindAllResume(HttpServletRequest request,
+                                                HttpServletResponse response, Model model) throws Exception {
+        String uri = request.getRequestURI();
+        String format = uri.substring(uri.lastIndexOf(".") + 1);
+
+        model.addAttribute("format", format);
+
+        Set<User> users = userService.findAllUser();
+        model.addAttribute("users", users);
+
+        return "testJasperFindAllResume";
+    }
 }
