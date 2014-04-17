@@ -22,46 +22,54 @@ import java.util.Set;
  */
 @Controller
 @Transactional
+@RequestMapping("/testViews")
 public class TestSpringMVCViewController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/testJSP/findAllResume", "/"})
+    @RequestMapping(value = "/")
+    public String indexPage(Model model){
+        Set<User> users = userService.findAllUser();
+        model.addAttribute("users", users);
+        return "index";
+    }
+
+    @RequestMapping(value = {"/jsp"})
     public String testJSPFindAllResume(Model model){
         Set<User> users = userService.findAllUser();
         model.addAttribute("users", users);
         return "testJSPFindAllResume";
     }
 
-    @RequestMapping(value = {"/testJSPX/findAllResume"})
+    @RequestMapping(value = {"/jspx"})
     public String testJSPXFindAllResume(Model model){
         Set<User> users = userService.findAllUser();
         model.addAttribute("users", users);
         return "testJSPXFindAllResume";
     }
 
-    @RequestMapping(value = {"/testTiles/findAllResume"})
+    @RequestMapping(value = {"/tiles"})
     public String testTilesFindAllResume(Model model){
         Set<User> users = userService.findAllUser();
         model.addAttribute("users", users);
         return "testTilesFindAllResume";
     }
 
-    @RequestMapping(value = {"/testVelocity/findAllResume"})
+    @RequestMapping(value = {"/velocity"})
     public String testVelocityFindAllResume(Model model){
         Set<User> users = userService.findAllUser();
         model.addAttribute("users", users);
         return "testVelocityFindAllResume";
     }
 
-    @RequestMapping(value = {"/testFreeMaker/findAllResume"})
+    @RequestMapping(value = {"/freeMaker"})
     public String testFreeMakerFindAllResume(Model model){
         Set<User> users = userService.findAllUser();
         model.addAttribute("users", users);
         return "testFreeMakerFindAllResume";
     }
 
-    @RequestMapping(value = {"/testXSLT/testXSLT"})
+    @RequestMapping(value = {"/xslt"})
     public ModelAndView testXSLTFindAllResume(HttpServletRequest request,
                                         HttpServletResponse response){
         // builds absolute path of the XML file
@@ -78,7 +86,7 @@ public class TestSpringMVCViewController {
         return model;
     }
 
-    @RequestMapping(value = {"/testJasper/findAllResume"})
+    @RequestMapping(value = {"/jasper"})
     public String testJasperFindAllResume(HttpServletRequest request,
                                                 HttpServletResponse response, Model model) throws Exception {
         String uri = request.getRequestURI();

@@ -6,7 +6,7 @@
            version="3.0">
 
     <welcome-file-list>
-        <welcome-file>/</welcome-file>
+        <welcome-file>/testViews</welcome-file>
     </welcome-file-list>
 
     <context-param>
