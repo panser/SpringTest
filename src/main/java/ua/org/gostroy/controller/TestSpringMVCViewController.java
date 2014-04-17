@@ -15,7 +15,7 @@ import java.util.Set;
  */
 @Controller
 @Transactional
-public class UserController {
+public class TestSpringMVCViewController {
     @Autowired
     private UserService userService;
 
@@ -38,6 +38,20 @@ public class UserController {
         Set<User> users = userService.findAllUser();
         model.addAttribute("users", users);
         return "testTilesFindAllResume";
+    }
+
+    @RequestMapping(value = {"/testVelocity/findAllResume"})
+    public String testVelocityFindAllResume(Model model){
+        Set<User> users = userService.findAllUser();
+        model.addAttribute("users", users);
+        return "testVelocityFindAllResume";
+    }
+
+    @RequestMapping(value = {"/testFreeMaker/findAllResume"})
+    public String testFreeMakerFindAllResume(Model model){
+        Set<User> users = userService.findAllUser();
+        model.addAttribute("users", users);
+        return "testFreeMakerFindAllResume";
     }
 
 }
