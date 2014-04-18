@@ -78,11 +78,4 @@
         <property name="order" value="10"/>
     </bean>
 
-
-    <!--
-        <bean id="excelViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
-            &lt;!&ndash;<property name="order" value="1"/>&ndash;&gt;
-            <property name="location" value="/WEB-INF/excel/views.xml"/>
-        </bean>
-    -->
 </beans>
