@@ -6,9 +6,16 @@
 
     <context:annotation-config />
     <context:component-scan base-package="ua.org.gostroy"/>
-    <context:property-placeholder location="classpath:/app.properties"></context:property-placeholder>
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--<tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>-->
+
+    <context:property-placeholder properties-ref="deployProperties" />
+    <bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location">
+            <value>classpath:/etc/properties/app.properties</value>
+            <!--<value>classpath:/etc/properties/app.#{systemProperties[‘ENV']}.properties</value>-->
+        </property>
+    </bean>
 
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">

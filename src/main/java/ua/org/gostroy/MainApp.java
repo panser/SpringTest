@@ -10,7 +10,7 @@ import ua.org.gostroy.service.UserService;
  */
 public class MainApp {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("/spring/spring-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("/etc/spring/applicationContext.xml");
         UserService userService = context.getBean(UserService.class);
         for(User user : userService.findAllUser()){
             System.out.println(user);
