@@ -8,17 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>test java VIEW technology</title>
+    <title>test Spring Mvc Form</title>
 </head>
 <body>
-<H1>test java VIEW technology</H1>
-<ul>
-    <li><a href="testViews/jsp">jsp</a></li>
-    <li><a href="testViews/jspx">jspx</a></li>
-    <li><a href="testViews/tiles">tiles</a></li>
-    <li><a href="testViews/velocity">velocity</a></li>
-    <li><a href="testViews/freeMaker">freeMaker</a></li>
-    <li><a href="testViews/jasper">jasper</a></li>
-</ul>
+
 </body>
 </html>
