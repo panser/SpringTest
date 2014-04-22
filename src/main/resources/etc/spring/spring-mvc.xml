@@ -5,7 +5,7 @@
 
     <mvc:resources mapping="/resources/**" location="/staticresources/"/>
     <mvc:annotation-driven/>
-    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/" view-name="index_old"/>
 
 <bean id="jsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

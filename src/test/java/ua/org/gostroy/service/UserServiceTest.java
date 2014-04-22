@@ -19,6 +19,6 @@ public class UserServiceTest {
 
     @Test
     public void findAllUser(){
-        Assert.assertEquals(9, userService.findAllUser().size());
+        Assert.assertFalse(1 == userService.findAllUser().size());
     }
 }
