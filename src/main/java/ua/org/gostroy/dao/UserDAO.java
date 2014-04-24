@@ -11,7 +11,10 @@ import java.util.Set;
  */
 public interface UserDAO {
     User find(Integer id);
+    User findByLogin(String str);
     Set<User> findAll();
     Integer save(User user);
     void update(User user);
+    User merge(User user);
+    Integer saveOrUpdate(User user);
 }

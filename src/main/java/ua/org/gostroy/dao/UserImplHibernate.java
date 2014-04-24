@@ -2,6 +2,7 @@ package ua.org.gostroy.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ua.org.gostroy.entity.User;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,6 +36,18 @@ public class UserImplHibernate implements UserDAO{
     }
 
     @Override
+    public User findByLogin(String login) {
+        log.trace("Find UserDAO with login = " + login + " ...");
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+        List<User> users = criteria.add(Restrictions.like("login", login)).list();
+        User user = users.get(0);
+        if (user != null) {
+            log.trace("Find UserDAO with id: " + user.getId());
+        }
+        return user;
+    }
+
+    @Override
     public Set<User> findAll() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
         log.trace("Find all UserDAO ...");
@@ -46,6 +60,23 @@ public class UserImplHibernate implements UserDAO{
     public Integer save(User user) {
         log.trace("Save UserDAO with id = " + user.getId() + " ...");
         Integer idNew = (Integer) sessionFactory.getCurrentSession().save(user);
+        log.trace("Saved UserDAO with id = " + idNew);
+        return idNew;
+    }
+
+    @Override
+    public User merge(User user) {
+        log.trace("Save UserDAO with id = " + user.getId() + " ...");
+        User userNew = (User)sessionFactory.getCurrentSession().merge(user);
+        log.trace("Saved UserDAO with id = " + userNew.getId());
+        return userNew;
+    }
+
+    @Override
+    public Integer saveOrUpdate(User user) {
+        log.trace("Save UserDAO with id = " + user.getId() + " ...");
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
+        Integer idNew =  user.getId();
         log.trace("Saved UserDAO with id = " + idNew);
         return idNew;
     }

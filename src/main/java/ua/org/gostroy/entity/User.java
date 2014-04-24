@@ -14,6 +14,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Version
+    private Long version;
     @Size(min = 5, max = 20)
     private String login;
     @Email
@@ -29,6 +31,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public String getLogin() {

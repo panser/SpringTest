@@ -35,6 +35,18 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User findByLogin(final String login) {
+        log.trace("Find User with login = " + login + " ...");
+        User user = userDAO.findByLogin(login);
+        if (user != null) {
+            log.trace("Find User with id: " + user.getId());
+            return user;
+        }
+        return null;
+    }
+
+
+    @Transactional(readOnly = true)
     public Set<User> findAllUser() {
         log.trace("Find all User in repository ...");
         Set<User> users = new HashSet<User>(userDAO.findAll());
@@ -47,6 +59,22 @@ public class UserService {
         log.trace("Save User in repository with id = " + user.getId() + " ...");
         userDAO.save(user);
         log.trace("Saved User in repository with id = " + user.getId());
+        return user;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public User mergeUser(final User user) throws ConstraintViolationException {
+        log.trace("Save User in repository with id = " + user.getId() + " ...");
+        User userNew = userDAO.merge(user);
+        log.trace("Saved User in repository with id = " + userNew.getId());
+        return userNew;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public User saveOrUpdate(final User user) throws ConstraintViolationException {
+        log.trace("Save User in repository with id = " + user.getId() + " ...");
+        Integer idNew = userDAO.saveOrUpdate(user);
+        log.trace("Saved User in repository with id = " + idNew);
         return user;
     }
 
