@@ -14,21 +14,23 @@
 <body>
 <h2>Add User</h2>
     <div>
-        <sf:form method="post" modelAttribute="user">
-            <sf:label path="login">Login:</sf:label>
-            <sf:input path="login" id="login"/>
-            <sf:errors path="login" cssClass="error" />
-            <p/>
-            <sf:label path="email">Email:</sf:label>
-            <sf:input path="email" id="email"/>
-            <sf:errors path="email" cssClass="error" />
-            <p/>
-            <sf:label path="password">Password:</sf:label>
-            <sf:password path="password" id="password"/>
-            <sf:errors path="password" cssClass="error" />
-            <p/>
+        <sf:form method="POST" modelAttribute="user" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <sf:label path="login">Login:</sf:label>
+                <sf:input path="login" id="login"/>
+                <sf:errors path="login" cssClass="error" />
+                <p/>
+                <sf:label path="email">Email:</sf:label>
+                <sf:input path="email" id="email"/>
+                <sf:errors path="email" cssClass="error" />
+                <p/>
+                <sf:label path="password">Password:</sf:label>
+                <sf:password path="password" id="password" showPassword="true"/>
+                <sf:errors path="password" cssClass="error" />
+                <p/>
 
-            <button type="submit">Registration</button>
+                <input name="commit" type="submit" value="Registration" />
+            </fieldset>
         </sf:form>
 
     </div>

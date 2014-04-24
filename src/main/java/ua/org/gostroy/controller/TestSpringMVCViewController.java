@@ -28,7 +28,7 @@ public class TestSpringMVCViewController {
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "error";
+            return "addUser";
         }
         else
         {
@@ -45,7 +45,7 @@ public class TestSpringMVCViewController {
     @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.POST)
     public String editUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "error";
+            return "editUser";
         }
         else
         {

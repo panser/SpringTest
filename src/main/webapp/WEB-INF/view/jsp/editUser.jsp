@@ -14,21 +14,26 @@
 <body>
 <h2>Edit User</h2>
 <div>
-    <sf:form method="post" modelAttribute="user">
-        <sf:label path="login">Login:</sf:label>
-        <sf:input path="login" id="login" />
-        <sf:errors path="login" cssClass="error" />
-        <p/>
-        <sf:label path="email">Email:</sf:label>
-        <sf:input path="email" id="email"/>
-        <sf:errors path="email" cssClass="error" />
-        <p/>
-        <sf:label path="password">Password:</sf:label>
-        <sf:password path="password" id="password"/>
-        <sf:errors path="password" cssClass="error" />
-        <p/>
+    <sf:form method="post" modelAttribute="user" enctype="multipart/form-data">
+        <fieldset>
+            <sf:label path="login">Login:</sf:label>
+            <sf:input path="login" id="login" />
+            <sf:errors path="login" cssClass="error" />
+            <p/>
+            <sf:label path="email">Email:</sf:label>
+            <sf:input path="email" id="email"/>
+            <sf:errors path="email" cssClass="error" />
+            <p/>
+            <sf:label path="password">Password:</sf:label>
+            <sf:password path="password" showPassword="yes" id="password"/>
+            <sf:errors path="password" cssClass="error" />
+            <p/>
+            <label for="photo">Profile image:</label>
+            <input name="photo" type="file">
+            <p/>
 
-        <button type="submit">Save</button>
+            <input name="commit" type="submit" value="Save" />
+        </fieldset>
     </sf:form>
 
 </div>
