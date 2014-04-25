@@ -23,11 +23,17 @@
                 <td><img src="<s:url value="/resources/image/photo/${user.id}/${user.photoName}"/>" width="48" height="48" /></td>
                 <td><c:out value="${user.id}"/> </td>
                 <td>
-                    <a href="<s:url value="edit/${user.login}"/>" />
+                    <%--<a href="<s:url value="${user.login}/edit"/>" />--%>
                     <c:out value="${user.login}"/>
                 </td>
                 <td><c:out value="${user.email}"/> </td>
                 <td><c:out value="${user.password}"/> </td>
+                <td>
+                    <form method="get" action="${user.login}/edit">
+                        <input type="submit" value="Edit"/>
+                    </form>
+                    <%--<input type="submit" value="Edit" onclick="window.location='${user.login}/edit';" />--%>
+                </td>
                 <td>
                     <sf:form method="DELETE" action="${user.login}/delete" cssClass="deleteForm">
                         <input type="submit" value="Delete"/>
@@ -36,7 +42,13 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="add" >ADD USER</a>
+<%--
+    <form method="get" action="add">
+        <input type="submit" value="ADD USER"/>
+    </form>
+--%>
+    <input type="submit" value="ADD USER" onclick="window.location='add';" />
+
 </div>
 </body>
 </html>

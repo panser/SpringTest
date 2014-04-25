@@ -53,12 +53,12 @@ public class UserController implements ServletContextAware {
         }
     }
 
-    @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/{login}/edit"}, method = RequestMethod.GET)
     public String editUser(Model model, @PathVariable String login){
         model.addAttribute("user", userService.findByLogin(login));
         return "editUser";
     }
-    @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/{login}/edit"}, method = RequestMethod.POST)
     public String editUser(@Valid @ModelAttribute("user") User user, BindingResult result,
                            @RequestParam(value = "photo", required = false)MultipartFile photo){
         if(result.hasErrors()){
@@ -115,7 +115,16 @@ public class UserController implements ServletContextAware {
     @RequestMapping(value = {"/{login}/delete", "/list/{login}/delete"}, method = RequestMethod.DELETE)
     public String deleteUser(@PathVariable String login){
         log.trace("start deleteUser with login: " + login + "...");
-        userService.deleteUser(login);
+        Integer delId = userService.deleteUser(login);
+        if (delId != 0){
+            try{
+                String delFile = context.getRealPath("") + "/../../staticresources" + "/image/photo/" + delId;
+                log.trace("try del Used directory: " + delFile);
+                FileUtils.deleteDirectory(new File(delFile));
+            }catch (IOException e){
+                log.trace("Exception with del Used directory: " + e.toString());
+            }
+        }
         log.trace("finish deleteUser with login: " + login + ".");
         return "redirect:/user/list";
     }

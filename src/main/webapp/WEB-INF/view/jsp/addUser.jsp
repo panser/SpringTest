@@ -29,7 +29,8 @@
                 <sf:errors path="password" cssClass="error" />
                 <p/>
 
-                <input name="commit" type="submit" value="Registration" />
+                <input name="commit" type="submit" value="Add" />
+                <input type="button" class="back-button" onclick="history.back();" value="Back" />
             </fieldset>
         </sf:form>
 

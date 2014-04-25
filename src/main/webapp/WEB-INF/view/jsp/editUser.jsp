@@ -35,8 +35,10 @@
             <p/>
 
             <input name="commit" type="submit" value="Save" />
+            <input type="button" class="back-button" onclick="history.back();" value="Back" />
         </fieldset>
     </sf:form>
+
 
 </div>
 

@@ -17,5 +17,5 @@ public interface UserDAO {
     User merge(User user);
     Integer saveOrUpdate(User user);
     void update(User user);
-    void delete(String login);
+    Integer delete(String login);
 }
