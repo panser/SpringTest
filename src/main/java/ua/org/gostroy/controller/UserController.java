@@ -69,8 +69,8 @@ public class UserController implements ServletContextAware {
             try{
                 if(!photo.isEmpty()){
                     validateImage(photo);
-                    saveImage(photo, user.getId());
-                    user.setPhotoName(photo.getOriginalFilename());
+                    String destinationPath = saveImage(photo, user.getId());
+                    user.setPhotoName("/resources" + destinationPath);
                 }
             }catch (ImageUploadException e){
                 result.rejectValue("photoName","exception",e.getMessage());
@@ -88,10 +88,13 @@ public class UserController implements ServletContextAware {
         }
         log.trace("validateImage is OK.");
     }
-    private void saveImage(MultipartFile image, Integer id) throws ImageUploadException{
+    private String saveImage(MultipartFile image, Integer id) throws ImageUploadException{
         log.trace("start saveImage ...");
+        String destinationPath = "";
         try{
-            File file = new File(calculateDestinationPath(image, id));
+            String destinationDirectory = context.getRealPath("") + "/../../staticresources";
+            destinationPath = calculateDestinationPath(image, id);
+            File file = new File(destinationDirectory + destinationPath);
             log.trace("image will save in " + file.getPath());
             FileUtils.writeByteArrayToFile(file, image.getBytes());
             log.trace("image saved: " + image.getBytes().length + " bytes");
@@ -99,11 +102,11 @@ public class UserController implements ServletContextAware {
             throw new ImageUploadException("Unable to save image", e);
         }
         log.trace("finish saveImage.");
+        return destinationPath;
     }
     private String calculateDestinationPath(MultipartFile multipartFile, Integer id){
 //        String destinationDirectory = context.getRealPath("") + "/WEB-INF/classes/static/image/photo/" + id + "/";
-        String destinationDirectory = context.getRealPath("") + "/../../staticresources" + "/image/photo/" + id + "/";
-        String destinationPath = destinationDirectory + multipartFile.getOriginalFilename();
+        String destinationPath = "/image/photo/" + id + "/" + multipartFile.getOriginalFilename();
         return destinationPath;
     }
 
