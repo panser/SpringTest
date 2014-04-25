@@ -101,8 +101,8 @@ public class UserController implements ServletContextAware {
         log.trace("finish saveImage.");
     }
     private String calculateDestinationPath(MultipartFile multipartFile, Integer id){
-//        String destinationDirectory = context.getRealPath("") + "/resources/image/photo/" + id + "/";
-        String destinationDirectory = context.getRealPath("") + "/../../tmpStatic" + "/resources/image/photo/" + id + "/";
+//        String destinationDirectory = context.getRealPath("") + "/WEB-INF/classes/static/image/photo/" + id + "/";
+        String destinationDirectory = context.getRealPath("") + "/../../staticresources" + "/image/photo/" + id + "/";
         String destinationPath = destinationDirectory + multipartFile.getOriginalFilename();
         return destinationPath;
     }

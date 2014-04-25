@@ -19,13 +19,14 @@
     <table>
         <c:forEach items="${users}" var="user">
             <tr>
-                    <td><c:out value="${user.id}"/> </td>
-                    <td>
-                        <a href="<s:url value="edit/${user.login}"/>" />
-                        <c:out value="${user.login}"/>
-                    </td>
-                    <td><c:out value="${user.email}"/> </td>
-                    <td><c:out value="${user.password}"/> </td>
+                <td><img src="<s:url value="/resources/image/photo/${user.id}/${user.photoName}"/>" width="48" height="48" /></td>
+                <td><c:out value="${user.id}"/> </td>
+                <td>
+                    <a href="<s:url value="edit/${user.login}"/>" />
+                    <c:out value="${user.login}"/>
+                </td>
+                <td><c:out value="${user.email}"/> </td>
+                <td><c:out value="${user.password}"/> </td>
             </tr>
         </c:forEach>
     </table>
