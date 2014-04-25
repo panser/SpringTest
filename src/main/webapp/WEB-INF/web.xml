@@ -45,12 +45,31 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>multipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>multipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- for REST architecture: to use PUT, DELETE-->
+    <filter>
         <filter-name>HttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>HttpMethodFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--To support HTTP PUT and PATCH requests-->
+    <filter>
+        <filter-name>httpPutFormFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>httpPutFormFilter</filter-name>
+        <servlet-name>dispatcher</servlet-name>
     </filter-mapping>
 
     <!--MVC-->

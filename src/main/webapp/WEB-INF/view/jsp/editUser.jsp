@@ -14,7 +14,7 @@
 <body>
 <h2>Edit User</h2>
 <div>
-    <sf:form method="post" modelAttribute="user" enctype="multipart/form-data">
+    <sf:form method="POST" modelAttribute="user" enctype="multipart/form-data">
         <fieldset>
             <sf:label path="login">Login:</sf:label>
             <sf:input path="login" id="login" />

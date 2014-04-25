@@ -89,4 +89,14 @@ public class UserImplHibernate implements UserDAO{
         }
         log.trace("Updated UserDAO");
     }
+
+    @Override
+    public void delete(String login) {
+        log.trace("Delete UserDAO with login = " + login + " ...");
+        User delUser = findByLogin(login);
+        if (delUser != null) {
+            sessionFactory.getCurrentSession().delete(delUser);
+        }
+        log.trace("Delete UserDAO");
+    }
 }

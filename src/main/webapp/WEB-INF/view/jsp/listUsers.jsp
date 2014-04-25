@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: panser
@@ -27,6 +28,11 @@
                 </td>
                 <td><c:out value="${user.email}"/> </td>
                 <td><c:out value="${user.password}"/> </td>
+                <td>
+                    <sf:form method="DELETE" action="${user.login}/delete" cssClass="deleteForm">
+                        <input type="submit" value="Delete"/>
+                    </sf:form>
+                </td>
             </tr>
         </c:forEach>
     </table>

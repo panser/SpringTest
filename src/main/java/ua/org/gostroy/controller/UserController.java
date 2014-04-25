@@ -112,4 +112,11 @@ public class UserController implements ServletContextAware {
         model.addAttribute("users", userService.findAllUser());
         return "listUsers";
     }
+    @RequestMapping(value = {"/{login}/delete", "/list/{login}/delete"}, method = RequestMethod.DELETE)
+    public String deleteUser(@PathVariable String login){
+        log.trace("start deleteUser with login: " + login + "...");
+        userService.deleteUser(login);
+        log.trace("finish deleteUser with login: " + login + ".");
+        return "redirect:/user/list";
+    }
 }
