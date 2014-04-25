@@ -29,7 +29,9 @@
             <sf:errors path="password" cssClass="error" />
             <p/>
             <label for="photo">Profile image:</label>
+            <%--<sf:label path="photo">Profile image:</sf:label>--%>
             <input name="photo" type="file">
+            <sf:errors path="photoName" cssClass="error" />
             <p/>
 
             <input name="commit" type="submit" value="Save" />

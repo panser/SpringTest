@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `version`   BIGINT(11) DEFAULT NULL,
   `login`     VARCHAR(50) DEFAULT NULL,
   `email`     VARCHAR(50) DEFAULT NULL,
-  `password`  VARCHAR(50) DEFAULT NULL
+  `password`  VARCHAR(50) DEFAULT NULL,
+  `photoName`  VARCHAR(50) DEFAULT NULL
 )
 ENGINE =InnoDB
 DEFAULT CHARSET =utf8;

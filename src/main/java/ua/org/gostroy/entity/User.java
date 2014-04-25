@@ -21,6 +21,7 @@ public class User {
     @Email
     private String email;
     private String password;
+    private String photoName;
 
     public User() {
     }
@@ -63,6 +64,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String photo) {
+        this.photoName = photo;
     }
 
     @Override
