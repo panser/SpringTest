@@ -22,6 +22,11 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan"
                   value="ua.org.gostroy.entity"/>
+<!--
+        &lt;!&ndash; to use Hibernate without packagesToScan &ndash;&gt;
+        <property name="configLocation" value="classpath:/etc/hibernate.cfg.xml" />
+        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
+-->
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${db.hibernate.dialect}</prop>
