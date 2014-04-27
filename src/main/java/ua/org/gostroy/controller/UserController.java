@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ import java.io.IOException;
 public class UserController implements ServletContextAware {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
+/*
 //    for test bean Life Circle
     @PostConstruct
     protected void beforeConstruct(){
@@ -40,6 +42,7 @@ public class UserController implements ServletContextAware {
         System.out.println(getClass() + "before destroy method invoked");
     }
 //    for test bean Life Circle
+*/
 
 
     @Autowired
@@ -138,6 +141,12 @@ public class UserController implements ServletContextAware {
         model.addAttribute("users", userService.findAllUser());
         return "listUsers";
     }
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET,produces="text/json")
+    @ResponseBody
+    public String listUserJSON(Model model){
+        return "{id:"+userService.findAllUser().toString()+"}";
+    }
+
     @RequestMapping(value = {"/delete/{login}"}, method = RequestMethod.DELETE)
     public String deleteUser(@PathVariable String login){
         log.trace("start deleteUser with login: " + login + "...");
