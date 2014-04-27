@@ -14,6 +14,8 @@ import ua.org.gostroy.entity.User;
 import ua.org.gostroy.exception.ImageUploadException;
 import ua.org.gostroy.service.UserService;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
@@ -27,6 +29,19 @@ import java.io.IOException;
 @SessionAttributes("user")
 public class UserController implements ServletContextAware {
     private final Logger log = LoggerFactory.getLogger(getClass());
+
+//    for test bean Life Circle
+    @PostConstruct
+    protected void beforeConstruct(){
+        System.out.println(getClass() + " :post construct method invoked");
+    }
+    @PreDestroy
+    protected void beforeDestroy() {
+        System.out.println(getClass() + "before destroy method invoked");
+    }
+//    for test bean Life Circle
+
+
     @Autowired
     private UserService userService;
 
