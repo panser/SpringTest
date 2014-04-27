@@ -29,13 +29,13 @@
                 <td><c:out value="${user.email}"/> </td>
                 <td><c:out value="${user.password}"/> </td>
                 <td>
-                    <form method="get" action="${user.login}/edit">
+                    <form method="get" action="edit/${user.login}">
                         <input type="submit" value="Edit"/>
                     </form>
                     <%--<input type="submit" value="Edit" onclick="window.location='${user.login}/edit';" />--%>
                 </td>
                 <td>
-                    <sf:form method="DELETE" action="${user.login}/delete" cssClass="deleteForm">
+                    <sf:form method="DELETE" action="delete/${user.login}" cssClass="deleteForm">
                         <input type="submit" value="Delete"/>
                     </sf:form>
                 </td>

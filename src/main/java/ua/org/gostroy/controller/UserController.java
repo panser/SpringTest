@@ -36,6 +36,12 @@ public class UserController implements ServletContextAware {
         this.context = servletContext;
     }
 
+    @RequestMapping("/")
+    public String home() {
+        return "redirect:/user/list";
+    }
+
+
     @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
     public String addUser(Model model){
         model.addAttribute("user", new User());
@@ -49,16 +55,17 @@ public class UserController implements ServletContextAware {
         else
         {
             userService.mergeUser(user);
-            return "redirect:/user/list";
+            return "redirect:/user/";
         }
     }
 
-    @RequestMapping(value = {"/{login}/edit"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.GET)
     public String editUser(Model model, @PathVariable String login){
         model.addAttribute("user", userService.findByLogin(login));
         return "editUser";
     }
-    @RequestMapping(value = {"/{login}/edit"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.POST)
     public String editUser(@Valid @ModelAttribute("user") User user, BindingResult result,
                            @RequestParam(value = "photo", required = false)MultipartFile photo){
         if(result.hasErrors()){
@@ -77,7 +84,7 @@ public class UserController implements ServletContextAware {
                 return "editUser";
             }
             userService.mergeUser(user);
-            return "redirect:/user/list";
+            return "redirect:/user/";
         }
     }
     private void validateImage(MultipartFile image) throws ImageUploadException{
@@ -110,12 +117,13 @@ public class UserController implements ServletContextAware {
         return destinationPath;
     }
 
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUser(Model model){
         model.addAttribute("users", userService.findAllUser());
         return "listUsers";
     }
-    @RequestMapping(value = {"/{login}/delete", "/list/{login}/delete"}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {"/delete/{login}"}, method = RequestMethod.DELETE)
     public String deleteUser(@PathVariable String login){
         log.trace("start deleteUser with login: " + login + "...");
         Integer delId = userService.deleteUser(login);
@@ -129,6 +137,6 @@ public class UserController implements ServletContextAware {
             }
         }
         log.trace("finish deleteUser with login: " + login + ".");
-        return "redirect:/user/list";
+        return "redirect:/user/";
     }
 }

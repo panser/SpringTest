@@ -9,6 +9,12 @@
         </layout>
     </appender>
 
+    <!-- Application Loggers -->
+    <logger name="ua.org.gostroy">
+        <level value="trace"/>
+    </logger>
+
+    <!-- 3rdparty Loggers -->
     <logger name="org.springframework">
         <level value="warn"/>
         <appender-ref ref="console" />
@@ -16,11 +22,8 @@
     <logger name="org.hibernate">
         <level value="warn"/>
     </logger>
-    <logger name="ua.org.gostroy">
-        <level value="trace"/>
-    </logger>
 
-
+    <!-- Root Logger -->
     <root>
         <priority value ="warn" />
         <appender-ref ref="console" />
