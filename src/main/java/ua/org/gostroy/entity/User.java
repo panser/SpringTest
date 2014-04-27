@@ -1,9 +1,12 @@
 package ua.org.gostroy.entity;
 
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  * Created by panser on 4/15/14.
@@ -22,6 +25,10 @@ public class User {
     private String email;
     private String password;
     private String photoName;
+    @DateTimeFormat
+    private Date createDate;
+    @DateTimeFormat
+    private Date deleteDate;
 
     public User() {
     }
@@ -72,6 +79,18 @@ public class User {
 
     public void setPhotoName(String photo) {
         this.photoName = photo;
+    }
+
+    public Date getDeleteDate() {
+        return deleteDate;
+    }
+
+    public void setDeleteDate(Date deleteDate) {
+        this.deleteDate = deleteDate;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
     }
 
     @Override

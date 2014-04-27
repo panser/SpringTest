@@ -3,6 +3,8 @@ package ua.org.gostroy.dao;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import ua.org.gostroy.entity.User;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,8 +53,12 @@ public class UserImplHibernate implements UserDAO{
     @Override
     public Set<User> findAll() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+//        List results = criteria.add(Restrictions.isNull("photoName")).list();
+        List results = criteria.add(Restrictions.isNull("deleteDate")).list();
+//        List results = criteria.list();
         log.trace("Find all UserDAO ...");
-        HashSet<User> hashSet = new HashSet<User>(criteria.list());
+        HashSet<User> hashSet = new HashSet<User>(results);
+//        HashSet<User> hashSet = new HashSet<User>(criteria.list());
         log.trace("Find " + hashSet.size() + " UserDAO");
         return hashSet;
     }
@@ -95,7 +102,9 @@ public class UserImplHibernate implements UserDAO{
         log.trace("Delete UserDAO with login = " + login + " ...");
         User delUser = findByLogin(login);
         if (delUser != null) {
-            sessionFactory.getCurrentSession().delete(delUser);
+//            sessionFactory.getCurrentSession().delete(delUser);
+            delUser.setDeleteDate(new Date());
+            update(delUser);
             log.info("Delete UserDAO with id = " + delUser.getId());
             return delUser.getId();
         }

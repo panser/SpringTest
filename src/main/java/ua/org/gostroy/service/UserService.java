@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.org.gostroy.dao.UserDAO;
 import ua.org.gostroy.entity.User;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -89,8 +90,12 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public Integer deleteUser(final String login) throws ConstraintViolationException {
         log.trace("Delete User in repository with login = " + login + " ...");
+        User delUser = userDAO.findByLogin(login);
+//        delUser.setDeleteDate(new Date());
+//        updateUser(delUser);
         Integer delId = userDAO.delete(login);
         log.trace("Delete User in repository with login = " + login);
         return delId;
+//        return delUser.getId();
     }
 }
