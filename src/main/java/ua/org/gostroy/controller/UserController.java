@@ -36,7 +36,6 @@ import java.io.IOException;
 public class UserController implements ServletContextAware {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-/*
 //    for test bean Life Circle
     @PostConstruct
     protected void beforeConstruct(){
@@ -47,7 +46,6 @@ public class UserController implements ServletContextAware {
         System.out.println(getClass() + "before destroy method invoked");
     }
 //    for test bean Life Circle
-*/
 
 
     @Autowired

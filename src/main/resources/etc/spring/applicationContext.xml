@@ -5,7 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config />
-    <context:component-scan base-package="ua.org.gostroy"/>
+    <context:component-scan base-package="ua.org.gostroy.dao"/>
+    <context:component-scan base-package="ua.org.gostroy.service"/>
 
     <context:property-placeholder properties-ref="deployProperties" />
     <bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -13,7 +14,8 @@
         <!--<property name="location" value="classpath:/etc/properties/app.#{systemProperties[‘ENV']}.properties" />-->
     </bean>
 
-    <import resource="classpath:/etc/spring/spring-*.xml"/>
+    <import resource="classpath:/etc/spring/spring-data.xml"/>
+    <!--<import resource="classpath:/etc/spring/spring-security.xml"/>-->
     <import resource="classpath:/etc/spring/beans/*.xml"/>
 
 </beans>

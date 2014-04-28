@@ -9,11 +9,12 @@
     <mvc:annotation-driven/>
     <mvc:view-controller path="/" view-name="index"/>
 
-<bean id="jsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="jsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/view/jsp/"/>
         <property name="suffix" value=".jsp"/>
         <property name="order" value="10"/>
     </bean>
 
+    <import resource="controllers.xml"/>
 </beans>
