@@ -102,9 +102,11 @@ public class UserImplHibernate implements UserDAO{
         log.trace("Delete UserDAO with login = " + login + " ...");
         User delUser = findByLogin(login);
         if (delUser != null) {
-//            sessionFactory.getCurrentSession().delete(delUser);
+            sessionFactory.getCurrentSession().delete(delUser);
+/*
             delUser.setDeleteDate(new Date());
             update(delUser);
+*/
             log.info("Delete UserDAO with id = " + delUser.getId());
             return delUser.getId();
         }

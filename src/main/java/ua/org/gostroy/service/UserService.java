@@ -90,12 +90,8 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public Integer deleteUser(final String login) throws ConstraintViolationException {
         log.trace("Delete User in repository with login = " + login + " ...");
-        User delUser = userDAO.findByLogin(login);
-//        delUser.setDeleteDate(new Date());
-//        updateUser(delUser);
         Integer delId = userDAO.delete(login);
         log.trace("Delete User in repository with login = " + login);
         return delId;
-//        return delUser.getId();
     }
 }

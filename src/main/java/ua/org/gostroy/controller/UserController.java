@@ -158,7 +158,6 @@ public class UserController implements ServletContextAware {
     public String deleteUser(@PathVariable String login, RedirectAttributes redirectAttributes){
         log.trace("start deleteUser with login: " + login + "...");
         Integer delId = userService.deleteUser(login);
-/*
         if (delId != 0){
             try{
                 String delFile = context.getRealPath("") + "/../../staticresources" + "/image/photo/" + delId;
@@ -168,7 +167,6 @@ public class UserController implements ServletContextAware {
                 log.trace("Exception with del Used directory: " + e.toString());
             }
         }
-*/
         log.trace("finish deleteUser with login: " + login + ".");
         redirectAttributes.addFlashAttribute("flashMessageDelete", messageSource.getMessage("flashMessageDelete", null, LocaleContextHolder.getLocale()));
         return "redirect:/user/list";
