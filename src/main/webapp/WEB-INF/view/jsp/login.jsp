@@ -14,24 +14,32 @@
 </head>
 <body>
 
-<a href="<c:url value="/index" />">
+<%--
+&lt;%&ndash;<a href="<c:url value="/index" />">&ndash;%&gt;
+<a href="<c:url value="/user/list" />">
 <spring:message code="login.contacts" />
-</a><br/>
+</a>
+<br/>
+--%>
 
+<%--
 <c:if test="${not empty param.error}">
     <font color="red"> <spring:message code="login.loginerror" />
         : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
 </c:if>
+--%>
 
-<form method="POST" action="<c:url value="/j_spring_security_check" />">
+<spring:url var="authUrl" value="/j_spring_security_check" />
+<form method="post" class="signin" action="${authUrl}">
 <table>
     <tr>
         <td align="right"><spring:message code="login.login" /></td>
-        <td><input type="text" name="j_username" /></td>
+        <td><input id="username" type="text" name="j_username" /></td>
     </tr>
     <tr>
         <td align="right"><spring:message code="login.password" /></td>
         <td><input type="password" name="j_password" /></td>
+        <%--<small><a href="/account/resend_password">Forgot?</a></small>--%>
     </tr>
     <tr>
         <td align="right"><spring:message code="login.remember" /></td>
@@ -45,6 +53,9 @@
     </tr>
 </table>
 </form>
+<script type="text/javascript">
+    document.getElementById('username').focus();
+</script>
 
 </body>
 </html>

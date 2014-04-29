@@ -6,16 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.org.gostroy.entity.User;
 import ua.org.gostroy.exception.ImageUploadException;
 import ua.org.gostroy.service.UserService;
@@ -23,7 +20,6 @@ import ua.org.gostroy.service.UserService;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -68,7 +64,7 @@ public class UserController implements ServletContextAware {
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUser(Model model){
         model.addAttribute("users", userService.findAllUser());
-        return "listUsers";
+        return "user/listUsers";
     }
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET,produces="text/json")
     @ResponseBody
@@ -80,12 +76,12 @@ public class UserController implements ServletContextAware {
     @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
     public String addUser(Model model){
         model.addAttribute("user", new User());
-        return "addUser";
+        return "user/addUser";
     }
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
-            return "addUser";
+            return "user/addUser";
         }
         else
         {
@@ -101,14 +97,14 @@ public class UserController implements ServletContextAware {
     @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.GET)
     public String editUser(Model model, @PathVariable String login){
         model.addAttribute("user", userService.findByLogin(login));
-        return "editUser";
+        return "user/editUser";
     }
     @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.POST)
     public String editUser(@Valid @ModelAttribute("user") User user, BindingResult result,
                            @RequestParam(value = "photo", required = false)MultipartFile photo,
                            RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
-            return "editUser";
+            return "user/editUser";
         }
         else
         {
@@ -120,7 +116,7 @@ public class UserController implements ServletContextAware {
                 }
             }catch (ImageUploadException e){
                 result.rejectValue("photoName","exception",e.getMessage());
-                return "editUser";
+                return "user/editUser";
             }
             userService.updateUser(user);
             redirectAttributes.addFlashAttribute("flashMessageEdit", messageSource.getMessage("flashMessageEdit", null, LocaleContextHolder.getLocale()));
