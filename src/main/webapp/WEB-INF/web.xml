@@ -12,7 +12,11 @@
     <!-- Описание корневого контейнера, разделяемого всеми сервлетами и фильтрами -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/etc/spring/*.xml</param-value>
+        <param-value>
+            classpath:/etc/spring/applicationContext.xml,
+            classpath:/etc/spring/applicationContext.d/*.xml,
+            <!--classpath:/etc/spring/servletContext.d/multipart-resolver.xml-->
+        </param-value>
     </context-param>
     <!-- Создаёт контейнер Spring, разделяемый всеми сервлетами и фильтрами -->
     <listener>
@@ -33,9 +37,17 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:/etc/spring/appServletMvc/spring-mvc.xml</param-value>
-            <!--<param-value>classpath:/etc/spring/applicationContext.xml</param-value>-->
+            <param-value>
+                <!--classpath:/etc/spring/applicationContext.xml,-->
+                <!--classpath:/etc/spring/applicationContext.d/*.xml,-->
+                classpath:/etc/spring/servletContext.xml,
+                classpath:/etc/spring/servletContext.d/*.xml
+            </param-value>
         </init-param>
+        <multipart-config>
+            <max-file-size>-1</max-file-size>
+            <file-size-threshold>-1</file-size-threshold>
+        </multipart-config>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

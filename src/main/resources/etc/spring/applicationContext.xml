@@ -4,7 +4,9 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- registers all of Spring's standard post-processors for annotation-based configuration -->
     <context:annotation-config />
+
     <context:component-scan base-package="ua.org.gostroy.dao"/>
     <context:component-scan base-package="ua.org.gostroy.service"/>
 
@@ -14,8 +16,8 @@
         <!--<property name="location" value="classpath:/etc/properties/app.#{systemProperties[‘ENV']}.properties" />-->
     </bean>
 
-    <import resource="classpath:/etc/spring/spring-data.xml"/>
+    <!--<import resource="classpath:/etc/spring/spring-data.xml"/>-->
     <!--<import resource="classpath:/etc/spring/spring-security.xml"/>-->
-    <import resource="classpath:/etc/spring/beans/*.xml"/>
+    <!--<import resource="classpath:/etc/spring/applicationContext.d/*.xml"/>-->
 
 </beans>

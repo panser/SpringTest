@@ -3,19 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="-1"/>
-    </bean>
-
 <!--
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="-1"/>
+        &lt;!&ndash;<property name="maxInMemorySize" value="5242880"/>&ndash;&gt;
+        &lt;!&ndash;<property name="defaultEncoding" value="utf-8"/>&ndash;&gt;
     </bean>
 -->
 
-<!--
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
     </bean>
--->
 </beans>

@@ -23,6 +23,7 @@ import ua.org.gostroy.service.UserService;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.ServletContext;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -121,7 +122,7 @@ public class UserController implements ServletContextAware {
                 result.rejectValue("photoName","exception",e.getMessage());
                 return "editUser";
             }
-            userService.mergeUser(user);
+            userService.updateUser(user);
             redirectAttributes.addFlashAttribute("flashMessageEdit", messageSource.getMessage("flashMessageEdit", null, LocaleContextHolder.getLocale()));
             return "redirect:/user/list";
         }
