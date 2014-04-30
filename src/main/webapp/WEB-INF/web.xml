@@ -13,12 +13,10 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:/etc/spring/applicationContext.xml,
-            <!--classpath:/etc/spring/applicationContext.d/*.xml,-->
+            classpath:/etc/spring/applicationContext.xml
             classpath:/etc/spring/applicationContext.d/spring-data.xml
             classpath:/etc/spring/applicationContext.d/spring-security.xml
             classpath:/etc/spring/applicationContext.d/validator.xml
-            <!--classpath:/etc/spring/servletContext.d/multipart-resolver.xml-->
         </param-value>
     </context-param>
     <!-- Создаёт контейнер Spring, разделяемый всеми сервлетами и фильтрами -->
@@ -35,6 +33,7 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 -->
+<!--
     <listener>
         <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
     </listener>
@@ -42,6 +41,7 @@
         <param-name>logbackConfigLocation</param-name>
         <param-value>classpath:/etc/logback.xml</param-value>
     </context-param>
+-->
 
     <!-- Базовый сервлет, обрабатывает все запросы к приложению -->
     <servlet>
@@ -50,10 +50,16 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                <!--classpath:/etc/spring/applicationContext.xml,-->
-                <!--classpath:/etc/spring/applicationContext.d/*.xml,-->
-                classpath:/etc/spring/servletContext.xml,
-                classpath:/etc/spring/servletContext.d/*.xml
+                <!--classpath:/etc/spring/applicationContext.xml-->
+                <!--classpath:/etc/spring/applicationContext.d/*.xml-->
+                classpath:/etc/spring/servletContext.xml
+                classpath:/etc/spring/servletContext.d/controllers.xml
+                classpath:/etc/spring/servletContext.d/message-source.xml
+                classpath:/etc/spring/servletContext.d/locale-resolver.xml
+                classpath:/etc/spring/servletContext.d/interceptors.xml
+                classpath:/etc/spring/servletContext.d/multipart-resolver.xml
+                classpath:/etc/spring/servletContext.d/resources.xml
+                classpath:/etc/spring/servletContext.d/view-resolver.xml
             </param-value>
         </init-param>
         <multipart-config>
