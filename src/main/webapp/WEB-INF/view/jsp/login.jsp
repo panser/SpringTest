@@ -15,14 +15,6 @@
 </head>
 <body>
 
-<%--
-&lt;%&ndash;<a href="<c:url value="/index" />">&ndash;%&gt;
-<a href="<c:url value="/user/list" />">
-<spring:message code="login.contacts" />
-</a>
-<br/>
---%>
-
 <c:if test="${not empty param.error}">
     <font color="red"> <spring:message code="springSecurity.loginerror" />
         : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>

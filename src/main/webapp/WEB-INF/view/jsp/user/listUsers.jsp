@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: panser
@@ -20,6 +21,18 @@
     <h2><spring:message code="listUsers.header" /></h2>
 
     <span style="float: right">
+    </span>
+
+    <span style="float: right">
+        <security:authorize access="isAuthenticated()">
+            Hello <security:authentication property="principal.username" />!
+        </security:authorize>
+        <security:authorize access="hasRole('ROLE_ANONYMOUS')">
+            <a href="../login">
+                <spring:message code="listUsers.url.login" />
+            </a>
+        </security:authorize>
+        <br/>
         <a href="?lang=en">en</a>
         |
         <a href="?lang=ru">ru</a>

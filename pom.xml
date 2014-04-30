@@ -274,6 +274,12 @@
             <artifactId>spring-security-web</artifactId>
             <version>${springframework.security.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${springframework.security.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>joda-time</groupId>
