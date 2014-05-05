@@ -24,12 +24,15 @@
     </span>
 
     <span style="float: right">
+        <security:authorize access="hasRole('ROLE_ANONYMOUS')">
+            <a href="<spring:url value="/login"/>">
+                <spring:message code="listUsers.url.login" />
+            </a>
+        </security:authorize>
         <security:authorize access="isAuthenticated()">
             Hello <security:authentication property="principal.username" />!
-        </security:authorize>
-        <security:authorize access="hasRole('ROLE_ANONYMOUS')">
-            <a href="../login">
-                <spring:message code="listUsers.url.login" />
+            <a href="<spring:url value="/logout"/>">
+                <spring:message code="listUsers.url.logout" />
             </a>
         </security:authorize>
         <br/>
@@ -52,17 +55,21 @@
                 </td>
                 <td><c:out value="${user.email}"/> </td>
                 <td><c:out value="${user.password}"/> </td>
-                <td>
-                    <form method="get" action="edit/${user.login}">
-                        <input type="submit" value="<spring:message code="listUsers.button.edit" />"/>
-                    </form>
-                    <%--<input type="submit" value="<spring:message code="listUsers.button.edit" />" onclick="window.location='${user.login}/edit';" />--%>
-                </td>
-                <td>
-                    <sf:form method="DELETE" action="delete/${user.login}" cssClass="deleteForm">
-                        <input type="submit" value="<spring:message code="listUsers.button.delete" />"/>
-                    </sf:form>
-                </td>
+                <security:authorize url="/user/edit/">
+                    <td>
+                        <form method="get" action="edit/${user.login}">
+                            <input type="submit" value="<spring:message code="listUsers.button.edit" />"/>
+                        </form>
+                        <%--<input type="submit" value="<spring:message code="listUsers.button.edit" />" onclick="window.location='${user.login}/edit';" />--%>
+                    </td>
+                </security:authorize>
+                <security:authorize url="/user/delete/">
+                    <td>
+                        <sf:form method="DELETE" action="delete/${user.login}" cssClass="deleteForm">
+                            <input type="submit" value="<spring:message code="listUsers.button.delete" />"/>
+                        </sf:form>
+                    </td>
+                </security:authorize>
             </tr>
         </c:forEach>
     </table>
@@ -71,8 +78,9 @@
         <input type="submit" value="<spring:message code="listUsers.button.add" />"/>
     </form>
 --%>
-    <input type="submit" value="<spring:message code="listUsers.button.add" />" onclick="window.location='add';" />
-
+    <security:authorize url="/user/add">
+        <input type="submit" value="<spring:message code="listUsers.button.add" />" onclick="window.location='add';" />
+    </security:authorize>
 </div>
 </body>
 </html>

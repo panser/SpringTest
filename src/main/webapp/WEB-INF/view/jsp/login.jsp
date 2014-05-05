@@ -39,7 +39,7 @@
     <tr>
         <td colspan="2" align="right">
             <input type="submit" value="<spring:message code="springSecurity.submit" />" />
-            <input type="reset" value="<spring:message code="springSecurity.reset" />" />
+            <%--<input type="reset" value="<spring:message code="springSecurity.reset" />" />--%>
         </td>
     </tr>
 </table>
