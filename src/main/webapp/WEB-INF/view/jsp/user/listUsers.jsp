@@ -21,17 +21,14 @@
     <h2><spring:message code="listUsers.header" /></h2>
 
     <span style="float: right">
-    </span>
-
-    <span style="float: right">
-        <security:authorize access="hasRole('ROLE_ANONYMOUS')">
-            <a href="<spring:url value="/login"/>">
+        <security:authorize access="!isAuthenticated()">
+            <a href="<c:url value="/login"/>">
                 <spring:message code="listUsers.url.login" />
             </a>
         </security:authorize>
         <security:authorize access="isAuthenticated()">
-            Hello <security:authentication property="principal.username" />!
-            <a href="<spring:url value="/logout"/>">
+            Hello <security:authentication property="principal.username" />,
+            <a href="<c:url value="/logout"/>">
                 <spring:message code="listUsers.url.logout" />
             </a>
         </security:authorize>

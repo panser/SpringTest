@@ -7,17 +7,20 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!--<http pattern="/login" security="none"/>-->
-    <!--<http pattern="/error*" security="none"/>-->
+    <global-method-security secured-annotations="enabled" />
+    <http pattern="/" security="none"/>
+    <http pattern="/login" security="none"/>
+    <http pattern="/errors/**" security="none"/>
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/test/**" security="none"/>
     <http access-denied-page="/errors/403.html" use-expressions="true">
-        <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/errors/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/resources/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/test/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
+        <!--<intercept-url pattern="/errors/**" access="permitAll"/>-->
+        <!--<intercept-url pattern="/resources/**" access="permitAll"/>-->
+        <!--<intercept-url pattern="/test/**" access="permitAll"/>-->
 
-        <intercept-url pattern="/user/" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/user/list" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER', 'ROLE_ADMIN')"/>
+        <intercept-url pattern="/user/" access="permitAll"/>
+        <intercept-url pattern="/user/list" access="permitAll"/>
+        <intercept-url pattern="/logout" access="isAuthenticated()"/>
         <intercept-url pattern="/user/add**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/user/edit/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/user/delete/**" access="hasAnyRole('ROLE_ADMIN')"/>
@@ -26,8 +29,10 @@
 
         <form-login login-page="/login"
                     authentication-success-handler-ref="authenticationSuccessHandler"
-                    authentication-failure-handler-ref="authenticationFailureHandler" />
-        <logout logout-url="/logout" logout-success-url="/user/list"  />
+                    authentication-failure-handler-ref="authenticationFailureHandler"/>
+        <!--<logout logout-url="/logout" success-handler-ref="logoutSuccessHandler"/>-->
+        <logout logout-url="/logout"/>
+        <!--<http-basic />-->
 
         <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
         <remember-me />
@@ -37,7 +42,7 @@
         </session-management>
     </http>
 
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
                 <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER" />
@@ -45,14 +50,26 @@
                 <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
+<!--
+        <authentication-provider >
+            <jdbc-user-service data-source-ref="dataSource"
+                users-by-username-query="select name as username, password, status as enabled from users where name=?"
+                authorities-by-username-query="select users.name as username, roles.role as authorities from users, roles where users.id = roles.id and users.name = ? "/>
+            <password-encoder hash="md5" />
+        </authentication-provider>
+-->
     </authentication-manager>
 
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-        <beans:property name="useReferer" value="true" />
+        <beans:property name="useReferer" value="false" />
         <beans:property name="defaultTargetUrl" value="/user/list" />
     </beans:bean>
     <beans:bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
         <beans:property name="defaultFailureUrl" value="/login?error=true" />
+    </beans:bean>
+    <beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <beans:property name="useReferer" value="true" />
+        <!--<beans:property name="defaultTargetUrl" value="/user/list" />-->
     </beans:bean>
 
 </beans:beans>

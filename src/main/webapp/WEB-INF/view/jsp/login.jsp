@@ -20,7 +20,7 @@
         : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
 </c:if>
 
-<spring:url var="authUrl" value="/j_spring_security_check" />
+<c:url var="authUrl" value="/j_spring_security_check" />
 <form method="post" class="signin" action="${authUrl}">
 <table>
     <tr>
