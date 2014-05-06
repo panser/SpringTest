@@ -166,5 +166,13 @@
         <error-code>503</error-code>
         <location>/errors/503.html</location>
     </error-page>
+    <!--
+        &lt;!&ndash; Exception &ndash;&gt;
+        <error-page>
+            <exception-type>java.lang.Exception</exception-type>
+            <location>uncaught-error.jsp</location>
+        </error-page>
+    -->
+
 
 </web-app>
