@@ -33,6 +33,11 @@
 
                 <input name="commit" type="submit" value="<spring:message code="addUser.button.add" />" />
                 <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="addUser.button.back" />" />
+<%--
+                <a href="${pageContext.request.contextPath}/" title="Back">
+                    <spring:message code="addUser.button.back" />
+                </a>
+--%>
             </fieldset>
         </sf:form>
 

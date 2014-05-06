@@ -9,10 +9,10 @@
 
     <!--<http pattern="/login" security="none"/>-->
     <!--<http pattern="/error*" security="none"/>-->
-    <http access-denied-page="/error403" use-expressions="true" auto-config="true" >
+    <http access-denied-page="/errors/403.html" use-expressions="true">
         <intercept-url pattern="/" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/error403" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
+        <intercept-url pattern="/errors/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/resources/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/test/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_ADMIN')"/>
 
@@ -22,21 +22,19 @@
         <intercept-url pattern="/user/edit/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/user/delete/**" access="hasAnyRole('ROLE_ADMIN')"/>
 
-        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+        <!--<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" requires-channel="any" />-->
 
-        <!--<form-login login-page="/login" default-target-url="/user/list" always-use-default-target="true" />-->
-        <!--<form-login login-page="/login" authentication-success-handler-ref="authenticationSuccessHandler" />-->
-        <form-login login-page="/login" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
+        <form-login login-page="/login"
+                    authentication-success-handler-ref="authenticationSuccessHandler"
+                    authentication-failure-handler-ref="authenticationFailureHandler" />
         <logout logout-url="/logout" logout-success-url="/user/list"  />
 
         <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
         <remember-me />
-<!--
-        <session-management>
+
+        <session-management invalid-session-url="/login">
             <concurrency-control max-sessions="1"  />
         </session-management>
-        <session-management invalid-session-url="/logout.html" />
--->
     </http>
 
     <authentication-manager>
@@ -49,11 +47,9 @@
         </authentication-provider>
     </authentication-manager>
 
-    <!--<beans:bean id="nullRequestCache" class="org.springframework.security.web.savedrequest.NullRequestCache"/>-->
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-        <!--<beans:property name="targetUrlParameter" value="request" />-->
-        <!--<beans:property name="requestCache" ref="nullRequestCache" />-->
-        <!--<beans:property name="useReferer" value="true" />-->
+        <beans:property name="useReferer" value="true" />
+        <beans:property name="defaultTargetUrl" value="/user/list" />
     </beans:bean>
     <beans:bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
         <beans:property name="defaultFailureUrl" value="/login?error=true" />

@@ -13,6 +13,10 @@
     <title><spring:message code="index.title" /></title>
 </head>
 <body>
-<a href="user/list" >USERS CRUD</a>
+<ul>
+    <li>
+        <a href="${pageContext.request.contextPath}/user/list" >USERS CRUD</a>
+    </li>
+</ul>
 </body>
 </html>
