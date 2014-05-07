@@ -13,12 +13,13 @@
     <http pattern="/errors/**" security="none"/>
     <http pattern="/resources/**" security="none"/>
     <http pattern="/test/**" security="none"/>
-    <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManagerInMemory" realm="UserList">
+    <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager" realm="UserList">
         <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 
         <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/login" access="permitAll"/>
-        <intercept-url pattern="/logout" access="permitAll"/>
+        <intercept-url pattern="/login" access="isAnonymous()"/>
+        <!--not work-->
+        <intercept-url pattern="/logout" access="isAuthenticated()"/>
         <intercept-url pattern="/timeout" access="permitAll"/>
 
         <intercept-url pattern="/user/" access="permitAll"/>
@@ -36,7 +37,7 @@
         <http-basic />
         <logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" delete-cookies="JSESSIONID"/>
         <!--<logout logout-url="/logout" delete-cookies="JSESSIONID"/>-->
-        <remember-me />
+        <remember-me token-validity-seconds="1209600" user-service-ref="userServiceOverJdbc"/>
         <headers/>
         <!--<csrf/>-->
 
@@ -45,22 +46,27 @@
         </session-management>
     </http>
 
-    <authentication-manager alias="authenticationManagerInMemory">
-        <authentication-provider>
-            <user-service>
-                <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER" />
-                <user name="user1" password="1111" authorities="ROLE_USER" />
-                <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
-            </user-service>
-        </authentication-provider>
+    <authentication-manager id="authenticationManager">
+        <authentication-provider user-service-ref="userServiceInMemory" />
+        <authentication-provider user-service-ref="userServiceOverJdbc" />
     </authentication-manager>
+    <user-service id="userServiceInMemory">
+        <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER" />
+        <user name="user1" password="1111" authorities="ROLE_USER" />
+        <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
+    </user-service>
+    <jdbc-user-service id="userServiceOverJdbc" data-source-ref="dataSource"
+        users-by-username-query="select login, password, true from users where login=?"
+        authorities-by-username-query="select login,'ROLE_ADMIN' from users where login=?"
+    />
+
 
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-        <beans:property name="useReferer" value="false" />
+        <!--<beans:property name="useReferer" value="true" />-->
         <beans:property name="defaultTargetUrl" value="/user/list" />
     </beans:bean>
     <beans:bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <beans:property name="defaultFailureUrl" value="/login?login_error=true" />
+        <beans:property name="defaultFailureUrl" value="/login?login_error=1" />
     </beans:bean>
     <beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
         <beans:property name="useReferer" value="true" />

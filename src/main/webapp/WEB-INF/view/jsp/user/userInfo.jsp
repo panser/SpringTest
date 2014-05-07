@@ -23,16 +23,34 @@
 
 <security:authorize access="isAuthenticated()">
     <p>
-    <b>principal</b> info:
-    <table>
-        <tr><td>principal.username</td><td><b><security:authentication property="principal.username" /></b></td></tr>
-        <tr><td>principal.password</td><td><b><security:authentication property="principal.password" /></b></td></tr>
-        <tr><td>principal.authorities</td><td><b><security:authentication property="principal.authorities" /></b></td></tr>
-        <tr><td>principal.accountNonExpired</td><td><b><security:authentication property="principal.accountNonExpired" /></b></td></tr>
-        <tr><td>principal.accountNonLocked</td><td><b><security:authentication property="principal.accountNonLocked" /></b></td></tr>
-        <tr><td>principal.credentialsNonExpired</td><td><b><security:authentication property="principal.credentialsNonExpired" /></b></td></tr>
-        <tr><td>principal.enabled</td><td><b><security:authentication property="principal.enabled" /></b></td></tr>
-    </table>
+        <b>security:authentication principal</b> info:
+        <table>
+            <tr><td>principal.username</td><td><b><security:authentication property="principal.username" /></b></td></tr>
+            <tr><td>principal.password</td><td><b><security:authentication property="principal.password" /></b></td></tr>
+            <tr><td>principal.authorities</td><td><b><security:authentication property="principal.authorities" /></b></td></tr>
+            <tr><td>principal.accountNonExpired</td><td><b><security:authentication property="principal.accountNonExpired" /></b></td></tr>
+            <tr><td>principal.accountNonLocked</td><td><b><security:authentication property="principal.accountNonLocked" /></b></td></tr>
+            <tr><td>principal.credentialsNonExpired</td><td><b><security:authentication property="principal.credentialsNonExpired" /></b></td></tr>
+            <tr><td>principal.enabled</td><td><b><security:authentication property="principal.enabled" /></b></td></tr>
+        </table>
+    </p>
+    <p>
+        <b>security:authentication authorities</b> info:
+        <table>
+            <tr><td>authorities</td><td><b><security:authentication property="authorities" /></b></td></tr>
+        </table>
+    </p>
+    <p>
+        <b>security:authentication credentials</b> info:
+        <table>
+            <tr><td>credentials</td><td><b><security:authentication property="credentials" /></b></td></tr>
+        </table>
+    </p>
+    <p>
+        <b>security:authentication authorities</b> info:
+        <table>
+            <tr><td>details</td><td><b><security:authentication property="details" /></b></td></tr>
+        </table>
     </p>
     <p>
         <b>request.getUserPrincipal()....:</b> <%= request.getUserPrincipal() %>
