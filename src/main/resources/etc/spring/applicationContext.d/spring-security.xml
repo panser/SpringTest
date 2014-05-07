@@ -7,12 +7,12 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!--<global-method-security secured-annotations="enabled" />-->
+    <global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"/>
     <debug />
 
     <http pattern="/errors/**" security="none"/>
     <http pattern="/resources/**" security="none"/>
-    <http pattern="/test/**" security="none"/>
+    <!--<http pattern="/test/**" security="none"/>-->
     <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager" realm="UserList">
         <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 
@@ -22,6 +22,7 @@
         <intercept-url pattern="/logout" access="isAuthenticated()"/>
         <intercept-url pattern="/timeout" access="permitAll"/>
 
+        <intercept-url pattern="/test/" access="permitAll"/>
         <intercept-url pattern="/user/" access="permitAll"/>
         <intercept-url pattern="/user/list" access="permitAll"/>
         <intercept-url pattern="/user/userInfo" access="permitAll"/>
