@@ -21,10 +21,15 @@
     </context-param>
     <context-param>
         <param-name>webAppRootKey</param-name>
-        <param-value>contacts.root</param-value>
+        <param-value>SpringDAO.root</param-value>
     </context-param>
 
     <!-- Создаёт контейнер Spring, разделяемый всеми сервлетами и фильтрами -->
+    <!--
+    - Loads the root application context of this web app at startup.
+    - The application context is then available via
+    - WebApplicationContextUtils.getWebApplicationContext(servletContext).
+    -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
