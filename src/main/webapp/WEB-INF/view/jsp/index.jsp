@@ -1,3 +1,4 @@
+<%@ page session="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
@@ -16,6 +17,22 @@
 <ul>
     <li>
         <a href="${pageContext.request.contextPath}/user/list" >USERS CRUD</a>
+    </li>
+    <li>
+        test:
+        <ul>
+            <li>
+                <a href="${pageContext.request.contextPath}/test/testHeaders" >HTTP Headers</a>
+            </li>
+            <li>
+                security:
+                <ul>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/test/testSecurityClickjacking" >test Clickjacking</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </li>
 </ul>
 </body>

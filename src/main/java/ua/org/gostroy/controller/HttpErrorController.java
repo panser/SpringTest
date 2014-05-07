@@ -21,6 +21,14 @@ public class HttpErrorController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/403.html")
+    public ModelAndView handle403(Model model) {
+        ModelAndView modelAndView = new ModelAndView(GENERAL_ERROR_VIEW);
+        modelAndView.addObject("errorCode", "403");
+        modelAndView.addObject("message", "Error 403 happens");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/404.html")
     public ModelAndView handle404(Model model) {
         ModelAndView modelAndView = new ModelAndView(GENERAL_ERROR_VIEW);

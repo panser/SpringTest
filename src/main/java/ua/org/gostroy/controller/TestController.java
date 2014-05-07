@@ -20,10 +20,15 @@ public class TestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = {"/testHeaders"}, method = RequestMethod.GET)
-    public String login(HttpEntity<byte[]> requestEntity, Model model){
+    public String testHeaders(HttpEntity<byte[]> requestEntity, Model model){
         Map<String,String> requestHeaderMap = requestEntity.getHeaders().toSingleValueMap();
 //        log.trace("requestHeaderMap: " + requestHeaderMap);
         model.addAttribute("requestHeaderMap",requestHeaderMap);
         return "test/testHeaders";
+    }
+
+    @RequestMapping(value = {"/testSecurityClickjacking"}, method = RequestMethod.GET)
+    public String testSecurityClickjacking(){
+        return "test/testSecurityClickjacking";
     }
 }

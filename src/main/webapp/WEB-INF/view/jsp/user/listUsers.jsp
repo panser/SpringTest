@@ -1,3 +1,4 @@
+<%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
@@ -28,6 +29,9 @@
         </security:authorize>
         <security:authorize access="isAuthenticated()">
             Hello <security:authentication property="principal.username" />,
+            <a href="<c:url value="/user/userInfo"/>">
+                <spring:message code="listUsers.url.userInfo" />
+            </a>
             <a href="<c:url value="/logout"/>">
                 <spring:message code="listUsers.url.logout" />
             </a>

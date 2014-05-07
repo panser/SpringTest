@@ -1,5 +1,7 @@
+<%@ page session="false" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: panser
@@ -13,10 +15,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title><spring:message code="editUser.title" /></title>
 </head>
-<body>
+<body onload="document.f.login.focus();">
 <h2><spring:message code="editUser.header" /></h2>
 <div>
-    <sf:form method="POST" modelAttribute="user" enctype="multipart/form-data">
+    <sf:form name="f" method="POST" modelAttribute="user" enctype="multipart/form-data">
         <fieldset>
             <sf:label path="login"><spring:message code="editUser.label.login" /></sf:label>
             <sf:input path="login" id="login" />
@@ -37,7 +39,8 @@
             <p/>
 
             <input name="commit" type="submit" value="<spring:message code="editUser.button.save" />" />
-            <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="editUser.button.back" />" />
+            <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="button.back" />" />
+            <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>
         </fieldset>
     </sf:form>
 

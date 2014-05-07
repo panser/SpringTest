@@ -61,6 +61,11 @@ public class UserController implements ServletContextAware {
         return "redirect:/user/list";
     }
 
+    @RequestMapping("/userInfo")
+    public String userInfo() {
+        return "user/userInfo";
+    }
+
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUser(Model model){
         model.addAttribute("users", userService.findAllUser());

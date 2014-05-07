@@ -17,12 +17,18 @@ public class SpringSecurityController {
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login(@RequestHeader(value = "referer", required = false) String referer){
-        log.trace("Referer Header: " + referer);
+        log.trace("Referer Header in /login: " + referer);
         return "login";
     }
 
     @RequestMapping("/logout")
-    public String logout() {
-        return "redirect:/user/list";
+    public String logout(@RequestHeader(value = "referer", required = false) String referer) {
+        log.trace("Referer Header in /logout: " + referer);
+        return "logout";
+    }
+
+    @RequestMapping("/timeout")
+    public String timeout() {
+        return "timeout";
     }
 }
