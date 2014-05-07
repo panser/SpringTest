@@ -21,7 +21,7 @@
         <intercept-url pattern="/logout" access="isAuthenticated()"/>
         <intercept-url pattern="/timeout" access="permitAll"/>
 
-        <intercept-url pattern="/test/" access="permitAll"/>
+        <intercept-url pattern="/test/**" access="permitAll"/>
         <intercept-url pattern="/user/" access="permitAll"/>
         <intercept-url pattern="/user/list" access="permitAll"/>
         <intercept-url pattern="/user/userInfo" access="permitAll"/>
@@ -39,11 +39,13 @@
         <!--<logout logout-url="/logout" delete-cookies="JSESSIONID"/>-->
         <remember-me token-validity-seconds="1209600" user-service-ref="userServiceOverJdbc"/>
         <headers/>
-        <!--<csrf/>-->
+        <csrf/>
 
+<!--
         <session-management invalid-session-url="/timeout">
             <concurrency-control max-sessions="1"/>
         </session-management>
+-->
     </http>
 
     <authentication-manager id="authenticationManager">

@@ -32,7 +32,8 @@
             <a href="<c:url value="/user/userInfo"/>">
                 <spring:message code="listUsers.url.userInfo" />
             </a>
-            <a href="<c:url value="/logout"/>">
+            <%--<a href="<c:url value="/logout"/>">--%>
+            <a href="javascript:formSubmit()">
                 <spring:message code="listUsers.url.logout" />
             </a>
         </security:authorize>
@@ -45,6 +46,18 @@
     <p>${flashMessageEdit}</p>
     <p>${flashMessageAdd}</p>
     <p>${flashMessageDelete}</p>
+
+    <!-- csrf for log out-->
+    <c:url value="/logout" var="logoutUrl" />
+    <form action="${logoutUrl}" method="post" id="logoutForm">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    </form>
+    <script>
+        function formSubmit() {
+            document.getElementById("logoutForm").submit();
+        }
+    </script>
+
     <table>
         <c:forEach items="${users}" var="user">
             <tr>

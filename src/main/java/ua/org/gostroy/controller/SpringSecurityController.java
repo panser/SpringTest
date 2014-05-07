@@ -21,12 +21,6 @@ public class SpringSecurityController {
         return "login";
     }
 
-    @RequestMapping("/logout")
-    public String logout(@RequestHeader(value = "referer", required = false) String referer) {
-        log.trace("Referer Header in /logout: " + referer);
-        return "logout";
-    }
-
     @RequestMapping("/timeout")
     public String timeout() {
         return "timeout";

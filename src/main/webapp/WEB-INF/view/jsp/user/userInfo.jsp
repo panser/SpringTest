@@ -53,7 +53,10 @@
         </table>
     </p>
     <p>
-        <b>request.getUserPrincipal()....:</b> <%= request.getUserPrincipal() %>
+        <b>request.getUserPrincipal()....: </b> <%= request.getUserPrincipal() %>
+    </p>
+    <p>
+        <b>pageContext.request.userPrincipal.name: </b> ${pageContext.request.userPrincipal.name}
     </p>
 </security:authorize>
 <br/>
