@@ -4,11 +4,14 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.org.gostroy.dao.UserDAO;
 import ua.org.gostroy.entity.User;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +38,7 @@ public class UserService {
         return null;
     }
 
+    @PostAuthorize("returnObject.login == principal.username")
     @Transactional(readOnly = true)
     public User findByLogin(final String login) {
         log.trace("Find User with login = " + login + " ...");
@@ -87,6 +91,8 @@ public class UserService {
         return user;
     }
 
+    @PreAuthorize("#login == principal.username")
+    @RolesAllowed({"ROLE_ADMIN"})
     @Transactional(rollbackFor = Exception.class)
     public Integer deleteUser(final String login) throws ConstraintViolationException {
         log.trace("Delete User in repository with login = " + login + " ...");

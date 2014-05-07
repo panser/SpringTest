@@ -12,7 +12,6 @@
 
     <http pattern="/errors/**" security="none"/>
     <http pattern="/resources/**" security="none"/>
-    <!--<http pattern="/test/**" security="none"/>-->
     <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager" realm="UserList">
         <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 
