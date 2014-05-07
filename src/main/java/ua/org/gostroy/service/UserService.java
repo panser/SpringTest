@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +51,7 @@ public class UserService {
         return null;
     }
 
-
+//    @PostFilter("filterObject.login == principal.name")
     @Transactional(readOnly = true)
     public Set<User> findAllUser() {
         log.trace("Find all User in repository ...");
