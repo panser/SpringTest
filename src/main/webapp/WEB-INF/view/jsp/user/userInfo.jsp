@@ -22,15 +22,21 @@
 </security:authorize>
 
 <security:authorize access="isAuthenticated()">
-    <b>Spring Security</b> info:
+    <p>
+    <b>principal</b> info:
     <table>
-        <tr>
-            <td>principal.username</td>
-            <td><b>
-                <security:authentication property="principal.username" />
-            </b></td>
-        </tr>
+        <tr><td>principal.username</td><td><b><security:authentication property="principal.username" /></b></td></tr>
+        <tr><td>principal.password</td><td><b><security:authentication property="principal.password" /></b></td></tr>
+        <tr><td>principal.authorities</td><td><b><security:authentication property="principal.authorities" /></b></td></tr>
+        <tr><td>principal.accountNonExpired</td><td><b><security:authentication property="principal.accountNonExpired" /></b></td></tr>
+        <tr><td>principal.accountNonLocked</td><td><b><security:authentication property="principal.accountNonLocked" /></b></td></tr>
+        <tr><td>principal.credentialsNonExpired</td><td><b><security:authentication property="principal.credentialsNonExpired" /></b></td></tr>
+        <tr><td>principal.enabled</td><td><b><security:authentication property="principal.enabled" /></b></td></tr>
     </table>
+    </p>
+    <p>
+        <b>request.getUserPrincipal()....:</b> <%= request.getUserPrincipal() %>
+    </p>
 </security:authorize>
 <br/>
 <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="button.back" />" />
