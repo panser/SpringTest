@@ -13,7 +13,8 @@
     <http pattern="/errors/**" security="none"/>
     <http pattern="/resources/**" security="none"/>
     <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager" realm="UserList">
-        <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
+        <custom-filter ref="localeContextFilter" after="FIRST" />
+        <!--<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />-->
 
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/login" access="isAnonymous()"/>
@@ -74,6 +75,10 @@
         <beans:property name="useReferer" value="true" />
         <beans:property name="targetUrlParameter" value="logout=true" />
         <beans:property name="defaultTargetUrl" value="/user/list" />
+    </beans:bean>
+
+    <beans:bean id="localeContextFilter" class="ua.org.gostroy.security.interceptor.LocaleContextFilter" >
+        <beans:property name="localeResolver" ref="localeResolver" />
     </beans:bean>
 
 </beans:beans>

@@ -17,6 +17,8 @@
             classpath:/etc/spring/applicationContext.d/spring-data.xml
             classpath:/etc/spring/applicationContext.d/spring-security.xml
             classpath:/etc/spring/applicationContext.d/validator.xml
+            classpath:/etc/spring/applicationContext.d/message-source.xml
+            classpath:/etc/spring/applicationContext.d/locale-resolver.xml
         </param-value>
     </context-param>
     <context-param>
@@ -32,6 +34,9 @@
     -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
 <!--
@@ -60,13 +65,9 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                <!--classpath:/etc/spring/applicationContext.xml-->
-                <!--classpath:/etc/spring/applicationContext.d/*.xml-->
                 classpath:/etc/spring/servletContext.xml
                 classpath:/etc/spring/servletContext.d/controllers.xml
-                classpath:/etc/spring/servletContext.d/message-source.xml
-                classpath:/etc/spring/servletContext.d/locale-resolver.xml
-                classpath:/etc/spring/servletContext.d/interceptors.xml
+                classpath:/etc/spring/servletContext.d/mvc-interceptors.xml
                 classpath:/etc/spring/servletContext.d/multipart-resolver.xml
                 classpath:/etc/spring/servletContext.d/resources.xml
                 classpath:/etc/spring/servletContext.d/view-resolver.xml

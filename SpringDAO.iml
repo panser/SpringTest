@@ -12,6 +12,7 @@
           <file>file://$MODULE_DIR$/src/main/resources/etc/spring/beans/resource-bundle.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/etc/spring/beans/interceptors.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/etc/spring/appServletMvc/controllers.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.d/mvc-interceptors.xml</file>
         </fileset>
       </configuration>
     </facet>

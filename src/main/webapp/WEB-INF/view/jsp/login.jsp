@@ -41,10 +41,10 @@
         <tr>
             <td colspan="2" align="right">
                 <input type="submit" value="<spring:message code="springSecurity.submit" />" />
+                <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="button.back" />" />
             </td>
         </tr>
     </table>
-    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
     <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>
 </form>
 
