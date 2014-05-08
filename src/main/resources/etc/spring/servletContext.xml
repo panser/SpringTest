@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Configures the @Controller programming model -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven validator="validator"/>
 
     <!--<import resource="servletContext.d/controllers.xml"/>-->
 </beans>

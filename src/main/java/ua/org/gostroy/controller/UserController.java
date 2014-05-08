@@ -132,7 +132,8 @@ public class UserController implements ServletContextAware {
         log.trace("start validateImage ...");
         if(!image.getContentType().equals("image/jpeg")){
             log.trace("validateImage throw Exception.");
-            throw new ImageUploadException("Only JPG images accepted");
+//            throw new ImageUploadException("Only JPG images accepted");
+            throw new ImageUploadException(messageSource.getMessage("ua.org.gostroy.exception.OnlyJpeg", null, LocaleContextHolder.getLocale()));
         }
         log.trace("validateImage is OK.");
     }

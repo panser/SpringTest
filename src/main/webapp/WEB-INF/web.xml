@@ -16,9 +16,9 @@
             classpath:/etc/spring/applicationContext.xml
             classpath:/etc/spring/applicationContext.d/spring-data.xml
             classpath:/etc/spring/applicationContext.d/spring-security.xml
-            classpath:/etc/spring/applicationContext.d/validator.xml
             classpath:/etc/spring/applicationContext.d/message-source.xml
             classpath:/etc/spring/applicationContext.d/locale-resolver.xml
+            classpath:/etc/spring/applicationContext.d/validator.xml
         </param-value>
     </context-param>
     <context-param>
@@ -71,6 +71,7 @@
                 classpath:/etc/spring/servletContext.d/multipart-resolver.xml
                 classpath:/etc/spring/servletContext.d/resources.xml
                 classpath:/etc/spring/servletContext.d/view-resolver.xml
+                classpath:/etc/spring/applicationContext.d/validator.xml
             </param-value>
         </init-param>
         <multipart-config>
