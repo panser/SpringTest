@@ -7,8 +7,8 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"/>
-    <debug />
+    <!--<global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"/>-->
+    <!--<debug />-->
 
     <http pattern="/errors/**" security="none" create-session="never" />
     <http pattern="/resources/**" security="none" create-session="never" />
