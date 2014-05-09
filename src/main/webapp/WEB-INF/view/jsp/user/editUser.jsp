@@ -2,6 +2,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: panser
@@ -19,6 +20,8 @@
 <h2><spring:message code="editUser.header" /></h2>
 <div>
     <sf:form name="f" method="POST" modelAttribute="user" enctype="multipart/form-data">
+    <%--<sf:form name="f" method="POST" modelAttribute="user" enctype="multipart/form-data"--%>
+             <%--action="./editUser?${_csrf.parameterName}=${_csrf.token}">--%>
         <fieldset>
             <sf:label path="login"><spring:message code="editUser.label.login" /></sf:label>
             <sf:input path="login" id="login" />
@@ -40,7 +43,8 @@
 
             <input name="commit" type="submit" value="<spring:message code="editUser.button.save" />" />
             <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="button.back" />" />
-            <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>
+            <%--<input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>--%>
+            <security:csrfInput />
         </fieldset>
     </sf:form>
 

@@ -16,6 +16,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title><spring:message code="listUsers.title" /></title>
+    <%--<security:csrfMetaTags />--%>
 </head>
 <body>
 <div>
@@ -35,20 +36,24 @@
                 </a>
             </p>
             <p>
-                <%--<a href="<c:url value="/logout"/>">--%>
+<%--
+                <a href="<c:url value="/logout"/>">
+                    <spring:message code="listUsers.url.logout" />
+                </a>
+--%>
+                <!-- csrf for log out-->
                 <a href="javascript:formSubmit()">
                     <spring:message code="listUsers.url.logout" />
                 </a>
-                <!-- csrf for log out-->
-                <c:url value="/logout" var="logoutUrl" />
-                <form action="${logoutUrl}" method="post" id="logoutForm">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
                 <script>
                     function formSubmit() {
                         document.getElementById("logoutForm").submit();
                     }
                 </script>
+                <c:url value="/logout" var="logoutUrl" />
+                <form action="${logoutUrl}" method="post" id="logoutForm">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
             </p>
         </security:authorize>
         <br/>

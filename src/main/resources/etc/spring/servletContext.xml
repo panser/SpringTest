@@ -6,5 +6,4 @@
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven validator="validator"/>
 
-    <!--<import resource="servletContext.d/controllers.xml"/>-->
 </beans>

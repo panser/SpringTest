@@ -10,11 +10,22 @@
     <global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"/>
     <debug />
 
-    <http pattern="/errors/**" security="none"/>
-    <http pattern="/resources/**" security="none"/>
-    <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager" realm="UserList">
+    <http pattern="/errors/**" security="none" create-session="never" />
+    <http pattern="/resources/**" security="none" create-session="never" />
+
+<!--
+    &lt;!&ndash; Stateless RESTful service using Basic authentication &ndash;&gt;
+    <http pattern="/restful/**" create-session="stateless">
+        <intercept-url pattern='/**' access='ROLE_ADMIN' />
+        <http-basic />
+    </http>
+-->
+
+    <http access-denied-page="/errors/403.html" use-expressions="true" authentication-manager-ref="authenticationManager"
+          realm="UserList">
+        <!--realm="UserList" security-context-repository-ref="httpSessionSecurityContextRepository">-->
         <custom-filter ref="localeContextFilter" after="FIRST" />
-        <!--<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />-->
+        <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/login" access="isAnonymous()"/>
@@ -36,17 +47,30 @@
                     authentication-success-handler-ref="authenticationSuccessHandler"
                     authentication-failure-handler-ref="authenticationFailureHandler"/>
         <http-basic />
-        <logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" delete-cookies="JSESSIONID"/>
+        <logout logout-url="/logout" success-handler-ref="logoutSuccessHandler"/>
         <!--<logout logout-url="/logout" delete-cookies="JSESSIONID"/>-->
-        <remember-me token-validity-seconds="1209600" user-service-ref="userServiceOverJdbc"/>
-        <headers/>
-        <csrf/>
 
-<!--
-        <session-management invalid-session-url="/timeout">
-            <concurrency-control max-sessions="1"/>
-        </session-management>
--->
+        <!--<remember-me token-validity-seconds="1209600" user-service-ref="userServiceInMemory"/>-->
+        <remember-me token-validity-seconds="1209600" user-service-ref="userServiceOverJdbc"/>
+
+        <csrf/>
+        <headers>
+            <cache-control />
+            <content-type-options />
+            <hsts />
+            <frame-options policy="SAMEORIGIN" />
+            <xss-protection />
+
+            <header name="X-Content-Security-Policy" value="default-src 'self'"/>
+            <header name="X-WebKit-CSP" value="default-src 'self'"/>
+        </headers>
+
+        <!--
+                &lt;!&ndash;has problems, becouse many page generate self session JSESSIONID&ndash;&gt;
+                <session-management invalid-session-url="/timeout">
+                    <concurrency-control max-sessions="-1"/>
+                </session-management>
+        -->
     </http>
 
     <authentication-manager id="authenticationManager">
@@ -79,6 +103,11 @@
 
     <beans:bean id="localeContextFilter" class="ua.org.gostroy.security.interceptor.LocaleContextFilter" >
         <beans:property name="localeResolver" ref="localeResolver" />
+    </beans:bean>
+
+
+    <beans:bean id="httpSessionSecurityContextRepository" class='org.springframework.security.web.context.HttpSessionSecurityContextRepository'>
+        <beans:property name='allowSessionCreation' value='false' />
     </beans:bean>
 
 </beans:beans>
