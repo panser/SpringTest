@@ -18,4 +18,5 @@ public interface UserDAO {
     Integer saveOrUpdate(User user);
     void update(User user);
     Integer delete(String login);
+    public Integer delete(User user);
 }

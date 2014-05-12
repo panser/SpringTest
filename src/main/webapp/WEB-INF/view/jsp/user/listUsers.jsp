@@ -87,6 +87,7 @@
                 </security:authorize>
                 <security:authorize url="/user/delete/">
                     <td>
+                        <%--<sf:form method="DELETE" action="delete/${user.login}" modelAttribute="${user}">--%>
                         <sf:form method="DELETE" action="delete/${user.login}" cssClass="deleteForm">
                             <input type="submit" value="<spring:message code="listUsers.button.delete" />"/>
                         </sf:form>
