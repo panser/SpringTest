@@ -1,12 +1,14 @@
 package ua.org.gostroy.entity;
 
 import org.hibernate.validator.constraints.Email;
-import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by panser on 4/15/14.
@@ -24,11 +26,14 @@ public class User {
     @Email
     private String email;
     private String password;
-    private String photoName;
+    private String avatorPath;
     @DateTimeFormat
     private Date createDate;
     @DateTimeFormat
     private Date deleteDate;
+//    @Valid
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Image> imagesCollection = new HashSet<Image>();
 
     public User() {
     }
@@ -73,12 +78,12 @@ public class User {
         this.password = password;
     }
 
-    public String getPhotoName() {
-        return photoName;
+    public String getAvatorPath() {
+        return avatorPath;
     }
 
-    public void setPhotoName(String photo) {
-        this.photoName = photo;
+    public void setAvatorPath(String photo) {
+        this.avatorPath = photo;
     }
 
     public Date getDeleteDate() {
@@ -91,6 +96,18 @@ public class User {
 
     public Date getCreateDate() {
         return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Set<Image> getImagesCollection() {
+        return imagesCollection;
+    }
+
+    public void setImagesCollection(Set<Image> imagesCollection) {
+        this.imagesCollection = imagesCollection;
     }
 
     @Override

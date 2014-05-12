@@ -36,9 +36,9 @@
             <sf:errors path="password" cssClass="error" />
             <p/>
             <%--<label>Profile image:</label>--%>
-            <sf:label path="photoName"><spring:message code="editUser.label.photoName" /></sf:label>
+            <sf:label path="avatorPath"><spring:message code="editUser.label.avatorPath" /></sf:label>
             <input name="photo" type="file">
-            <sf:errors path="photoName" cssClass="error" />
+            <sf:errors path="avatorPath" cssClass="error" />
             <p/>
 
             <input name="commit" type="submit" value="<spring:message code="editUser.button.save" />" />

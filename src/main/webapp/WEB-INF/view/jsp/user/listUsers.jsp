@@ -69,7 +69,7 @@
     <table>
         <c:forEach items="${users}" var="user">
             <tr>
-                <td><img src="<s:url value="${user.photoName}"/>" width="48" height="48" /></td>
+                <td><img src="<s:url value="${user.avatorPath}"/>" width="48" height="48" /></td>
                 <td><c:out value="${user.id}"/> </td>
                 <td>
                     <%--<a href="<s:url value="edit/${user.login}"/>" />--%>

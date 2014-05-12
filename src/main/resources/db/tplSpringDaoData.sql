@@ -1,5 +1,6 @@
 # PUT DATA INTO TABLES
 USE `tplspringdao`;
+
 LOCK TABLES `users` WRITE;
 INSERT IGNORE INTO `users` VALUES
   (1, 0, 'login1', 'email1@test.com', 'password1', null,null,null),
@@ -11,4 +12,10 @@ INSERT IGNORE INTO `users` VALUES
   (7, 0, 'login7', 'email7@test.com', 'password7', null,null,null),
   (8, 0, 'login8', 'email8@test.com', 'password8', null,null,null),
   (9, 0, 'login9', 'email9@test.com', 'password9', null,null,null);
+UNLOCK TABLES;
+
+LOCK TABLES `images` WRITE;
+INSERT IGNORE INTO `images` VALUES
+  (1, 0, 8, '/p/a/t/h',null,null),
+  (2, 0, 8, '/s/e/c/o/n/d',null,null);
 UNLOCK TABLES;

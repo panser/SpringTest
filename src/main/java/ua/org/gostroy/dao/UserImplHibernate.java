@@ -43,17 +43,18 @@ public class UserImplHibernate implements UserDAO{
         log.trace("Find UserDAO with login = " + login + " ...");
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
         List<User> users = criteria.add(Restrictions.like("login", login)).list();
-        User user = users.get(0);
-        if (user != null) {
+        if (users != null) {
+            User user = users.get(0);
             log.trace("Find UserDAO with id: " + user.getId());
+            return user;
         }
-        return user;
+        return null;
     }
 
     @Override
     public Set<User> findAll() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
-//        List results = criteria.add(Restrictions.isNull("photoName")).list();
+//        List results = criteria.add(Restrictions.isNull("avatorPath")).list();
         List results = criteria.add(Restrictions.isNull("deleteDate")).list();
 //        List results = criteria.list();
         log.trace("Find all UserDAO ...");

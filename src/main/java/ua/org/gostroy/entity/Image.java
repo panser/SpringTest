@@ -3,6 +3,7 @@ package ua.org.gostroy.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -16,7 +17,14 @@ public class Image {
     private Long id;
     @Version
     private Long version;
-    private String photoPath;
+
+    @NotNull
+//    @Valid
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    private User user;
+
+    private String imagePath;
     @DateTimeFormat
     private Date createDate;
     @DateTimeFormat
@@ -41,12 +49,20 @@ public class Image {
         this.version = version;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public User getUser() {
+        return user;
     }
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Date getCreateDate() {
@@ -63,5 +79,17 @@ public class Image {
 
     public void setDeleteDate(Date deleteDate) {
         this.deleteDate = deleteDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", version=" + version +
+                ", user=" + user +
+                ", imagePath='" + imagePath + '\'' +
+                ", createDate=" + createDate +
+                ", deleteDate=" + deleteDate +
+                '}';
     }
 }

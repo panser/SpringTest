@@ -16,9 +16,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title><spring:message code="addUser.title" /></title>
 </head>
-<body onload="document.f.login.focus();">
+<body onload="document.f.label.focus();">
 <h2><spring:message code="addUser.header" /></h2>
     <div>
+
         <sf:form name="f" method="POST" modelAttribute="user" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <sf:label path="login"><spring:message code="addUser.label.login" /></sf:label>
@@ -40,12 +41,12 @@
 
                 <input name="commit" type="submit" value="<spring:message code="addUser.button.add" />" />
                 <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="button.back" />" />
-<%--
-                <a href="${pageContext.request.contextPath}/" title="Back">
-                    <spring:message code="addUser.button.back" />
-                </a>
---%>
-                <%--<input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>--%>
+                    <%--
+                                    <a href="${pageContext.request.contextPath}/" title="Back">
+                                        <spring:message code="addUser.button.back" />
+                                    </a>
+                    --%>
+                    <%--<input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>"/>--%>
                 <security:csrfInput />
             </fieldset>
         </sf:form>

@@ -15,6 +15,25 @@
         </sourceRoots>
       </configuration>
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.d/controllers.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.d/locale-resolver.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.d/message-source.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.d/multipart-resolver.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.d/mvc-interceptors.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.d/resources.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.d/spring-data-repositories.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.d/spring-data.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.d/spring-security.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/applicationContext.d/validator.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/etc/spring/servletContext.d/view-resolver.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/SpringDAO-1.0-SNAPSHOT/WEB-INF/classes" />
