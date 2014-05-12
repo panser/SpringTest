@@ -200,6 +200,13 @@
             <version>${jasperreports-fonts.version}</version>
         </dependency>
 
+        <!--for ContentNegotiatingViewResolver-->
+        <dependency>
+            <groupId>jaf</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
     </dependencies>
 
 
