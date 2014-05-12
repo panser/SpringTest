@@ -55,7 +55,7 @@ public class ImageController {
 
 
 //    REST CONTROLLERS
-    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers="Accept=application/json")
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers={"Accept=text/xml, application/json"})
     public @ResponseBody List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
     }
