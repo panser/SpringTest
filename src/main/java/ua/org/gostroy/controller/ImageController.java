@@ -63,10 +63,10 @@ public class ImageController {
         return imageService.findByUserId_Login(login);
     }
 //    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, produces="application/json")
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=text/xml, application/json"})
-    public @ResponseBody String getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=text/xml, application/json"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Image getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
         log.trace("start getImageREST ...");
-        return imageService.find(Long.parseLong(id)).toString();
+        return imageService.find(Long.parseLong(id));
     }
     @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers = "Content-Type=application/json", consumes = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

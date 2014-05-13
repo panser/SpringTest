@@ -19,14 +19,25 @@
     <%--<security:csrfMetaTags />--%>
 </head>
 <body>
+    <c:set var="root" value="${pageContext.request.contextPath}"/>
 <div>
     <h2><spring:message code="listUsers.header" /></h2>
 
     <span style="float: right">
         <security:authorize access="!isAuthenticated()">
-            <a href="<c:url value="/login"/>">
+            <c:url value="/login" var="url"/>
+            <a href="<c:out value='${url}'/>">
                 <spring:message code="listUsers.url.login" />
             </a>
+<%--
+            <a href="${root}/login">
+            <spring:message code="listUsers.url.login" />
+            </a>
+            <spring:url value="/login" var="url"/>
+            <a href="${url}">
+                <spring:message code="listUsers.url.login" />
+            </a>
+--%>
         </security:authorize>
         <security:authorize access="isAuthenticated()">
             <p>
