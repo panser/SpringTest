@@ -39,7 +39,7 @@ public class ImageController {
         model.addAttribute("image", imageService.find(Long.parseLong(id)));
         return "image/view";
     }
-    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers="Accept=text/html")
+    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST)
     public String createImageFromForm(@Valid Image image,BindingResult result, @PathVariable("login") String login) throws ValidationException{
         if(result.hasErrors()) {
             throw new ValidationException();
@@ -59,13 +59,14 @@ public class ImageController {
     public @ResponseBody List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
     }
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers="Accept=application/json")
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers="Accept=text/xml, application/json")
     public @ResponseBody Image getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
+        log.trace("start getImageREST ...");
         return imageService.find(Long.parseLong(id));
     }
-    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST)
+    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers = "Content-Type=application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Image createImageREST(@Valid Image image,BindingResult result, @PathVariable("login") String login, HttpServletResponse response) throws ValidationException{
+    public @ResponseBody Image createImageREST(@Valid @RequestBody Image image,BindingResult result, @PathVariable("login") String login, HttpServletResponse response) throws ValidationException{
         if(result.hasErrors()) {
             throw new ValidationException();
         }
@@ -75,7 +76,7 @@ public class ImageController {
     }
     @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.PUT, headers="Accept=application/json")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateImageREST(@Valid Image image,@PathVariable("login") String login, @PathVariable("id") String id) {
+    public void updateImageREST(@Valid @RequestBody Image image,@PathVariable("login") String login, @PathVariable("id") String id) {
         imageService.merge(image);
     }
     @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.DELETE)
