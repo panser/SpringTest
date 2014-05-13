@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- registers all of Spring's standard post-processors for annotation-based configuration -->
     <context:annotation-config />
@@ -13,13 +14,9 @@
 
     <context:property-placeholder properties-ref="deployProperties" />
     <bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="classpath:/etc/properties/app.properties" />
+        <property name="locations" value="classpath:/etc/properties/*.properties"/>
         <!--<property name="location" value="classpath:/etc/properties/app.#{systemProperties[‘ENV']}.properties" />-->
     </bean>
-    <!--<util:properties id="applicationProps" location="classpath:/etc/properties/app.properties"/>-->
-
-    <!--<import resource="classpath:/etc/spring/spring-data.xml"/>-->
-    <!--<import resource="classpath:/etc/spring/spring-security.xml"/>-->
-    <!--<import resource="classpath:/etc/spring/applicationContext.d/*.xml"/>-->
+    <!--<util:properties id="AppProps" location="classpath:/etc/properties/app.properties"/>-->
 
 </beans>

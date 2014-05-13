@@ -71,7 +71,7 @@ public class UserController implements ServletContextAware {
         model.addAttribute("users", userService.findAllUser());
         return "user/listUsers";
     }
-    @RequestMapping(value = {"/list"}, method = RequestMethod.GET,produces="text/json")
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET,produces="application/json")
     @ResponseBody
     public String listUserJSON(Model model){
         return "{id:"+userService.findAllUser().toString()+"}";

@@ -1,9 +1,11 @@
 package ua.org.gostroy.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import ua.org.gostroy.service.ImageService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -59,22 +62,24 @@ public class ImageController {
     public @ResponseBody List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
     }
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers="Accept=text/xml, application/json")
-    public @ResponseBody Image getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
+//    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, produces="application/json")
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=text/xml, application/json"})
+    public @ResponseBody String getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
         log.trace("start getImageREST ...");
-        return imageService.find(Long.parseLong(id));
+        return imageService.find(Long.parseLong(id)).toString();
     }
-    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers = "Content-Type=application/json", consumes = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Image createImageREST(@Valid @RequestBody Image image,BindingResult result, @PathVariable("login") String login, HttpServletResponse response) throws ValidationException{
-        if(result.hasErrors()) {
-            throw new ValidationException();
-        }
-        imageService.merge(image);
+    public @ResponseBody Image createImageREST(@Valid @RequestBody String jsonImage,@PathVariable("login") String login, HttpServletResponse response){
+        Image image = null;
+        try{
+            image = new ObjectMapper().readValue(jsonImage, Image.class);
+            imageService.merge(image);
+        } catch (IOException e){}
         response.setHeader("Location", "/"+ login + "/"  + image.getId());
         return image;
     }
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.PUT, headers="Accept=application/json")
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.PUT, headers="Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateImageREST(@Valid @RequestBody Image image,@PathVariable("login") String login, @PathVariable("id") String id) {
         imageService.merge(image);
