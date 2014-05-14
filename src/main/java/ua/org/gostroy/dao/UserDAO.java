@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ua.org.gostroy.entity.User;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Set;
 public interface UserDAO {
     User find(Integer id);
     User findByLogin(String str);
-    Set<User> findAll();
+    List<User> findAll();
     Integer save(User user);
     User merge(User user);
     Integer saveOrUpdate(User user);

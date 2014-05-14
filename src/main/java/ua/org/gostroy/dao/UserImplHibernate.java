@@ -24,7 +24,7 @@ import java.util.Set;
 public class UserImplHibernate implements UserDAO{
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Autowired(required = true)
     @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 
@@ -52,16 +52,12 @@ public class UserImplHibernate implements UserDAO{
     }
 
     @Override
-    public Set<User> findAll() {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
-//        List results = criteria.add(Restrictions.isNull("avatorPath")).list();
-        List results = criteria.add(Restrictions.isNull("deleteDate")).list();
-//        List results = criteria.list();
+    public List<User> findAll() {
         log.trace("Find all UserDAO ...");
-        HashSet<User> hashSet = new HashSet<User>(results);
-//        HashSet<User> hashSet = new HashSet<User>(criteria.list());
-        log.trace("Find " + hashSet.size() + " UserDAO");
-        return hashSet;
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+        List results = criteria.add(Restrictions.isNull("deleteDate")).list();
+        log.trace("Find " + results.size() + " UserDAO");
+        return results;
     }
 
     @Override

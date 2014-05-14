@@ -21,9 +21,9 @@ import java.util.List;
 public class ImageService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Autowired(required = true)
     private ImageDAO imageDAO;
-    @Autowired
+    @Autowired(required = true)
     private UserDAO userDAO;
 
     @Transactional(readOnly = true)

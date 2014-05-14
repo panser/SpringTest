@@ -20,7 +20,7 @@ import java.util.List;
 public class ImageImplHibernate implements ImageDAO {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Autowired(required = true)
     @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 

@@ -1,6 +1,8 @@
 package ua.org.gostroy.entity;
 
 import org.hibernate.validator.constraints.Email;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,6 +18,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+    private transient final Logger log = LoggerFactory.getLogger(getClass());
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,6 +40,7 @@ public class User {
     private Set<Image> imagesCollection = new HashSet<Image>();
 
     public User() {
+//        log.trace("create new User ...");
     }
 
     public Integer getId() {

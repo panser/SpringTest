@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.org.gostroy.entity.User;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Set;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/etc/spring/applicationContext.xml")
 public class UserServiceTest {
-    @Autowired
+    @Autowired(required = true)
     UserService userService;
 
     @Test
@@ -27,7 +28,7 @@ public class UserServiceTest {
 
     @Test
     public void testMergeUser(){
-        Set<User> usersAtBegin = userService.findAllUser();
+        List<User> usersAtBegin = userService.findAllUser();
         User oneOfUser = usersAtBegin.iterator().next();
         userService.mergeUser(oneOfUser);
         Assert.assertEquals(usersAtBegin.size(), userService.findAllUser().size());
@@ -35,7 +36,7 @@ public class UserServiceTest {
 
     @Test
     public void testSaveOrUpdateUser(){
-        Set<User> usersAtBegin = userService.findAllUser();
+        List<User> usersAtBegin = userService.findAllUser();
         User oneOfUser = usersAtBegin.iterator().next();
         userService.saveOrUpdate(oneOfUser);
         Assert.assertEquals(usersAtBegin.size(), userService.findAllUser().size());

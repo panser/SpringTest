@@ -15,6 +15,7 @@ import ua.org.gostroy.entity.User;
 import javax.annotation.security.RolesAllowed;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ import java.util.Set;
 public class UserService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Autowired(required = true)
     private UserDAO userDAO;
 
     @Transactional(readOnly = true)
@@ -53,9 +54,9 @@ public class UserService {
 
 //    @PostFilter("filterObject.login == principal.name")
     @Transactional(readOnly = true)
-    public Set<User> findAllUser() {
+    public List<User> findAllUser() {
         log.trace("Find all User in repository ...");
-        Set<User> users = new HashSet<User>(userDAO.findAll());
+        List<User> users = userDAO.findAll();
         log.trace("Find all User in repository with countUser: " + users.size());
         return users;
     }

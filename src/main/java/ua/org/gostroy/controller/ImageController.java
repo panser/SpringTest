@@ -28,7 +28,7 @@ import java.util.List;
 public class ImageController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Autowired(required = true)
     private ImageService imageService;
 
 //    HTTP CONTROLERS

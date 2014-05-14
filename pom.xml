@@ -384,24 +384,22 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
-        <!-- smile (binary JSON). Other artifacts in this group do other formats. -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-smile</artifactId>
-            <version>${jackson2.version}</version>
-        </dependency>
-        <!-- JAX-RS provider -->
+<!--
+        &lt;!&ndash; JAX-RS provider &ndash;&gt;
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
-        <!-- Support for JAX-B annotations as additional configuration -->
+-->
+<!--
+        &lt;!&ndash; Support for JAX-B annotations as additional configuration &ndash;&gt;
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jaxb-annotations</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
+-->
 
     </dependencies>
 

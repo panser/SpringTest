@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping(value = "/user")
-@SessionAttributes({"user"})
+//@SessionAttributes({"user"})
 public class UserController implements ServletContextAware {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -45,9 +45,9 @@ public class UserController implements ServletContextAware {
 //    for test bean Life Circle
 
 
-    @Autowired
+    @Autowired(required = true)
     private UserService userService;
-    @Autowired
+    @Autowired(required = true)
     private MessageSource messageSource;
 
     ServletContext context;
@@ -68,6 +68,7 @@ public class UserController implements ServletContextAware {
 
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String listUser(Model model){
+        log.trace("listUser start ...");
         model.addAttribute("users", userService.findAllUser());
         return "user/listUsers";
     }
@@ -84,7 +85,13 @@ public class UserController implements ServletContextAware {
         return "user/addUser";
     }
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
-    public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes redirectAttributes){
+    public String addUser(@Valid @ModelAttribute("user") User userFromForm, BindingResult result, RedirectAttributes redirectAttributes){
+        User user = new User();
+//        log.trace("RECEIVED user object from EditForm: " + userFromForm);
+        user.setLogin(userFromForm.getLogin());
+        user.setEmail(userFromForm.getEmail());
+        user.setPassword(userFromForm.getPassword());
+
         if(result.hasErrors()){
             return "user/addUser";
         }
@@ -104,9 +111,15 @@ public class UserController implements ServletContextAware {
         return "user/editUser";
     }
     @RequestMapping(value = {"/edit/{login}"}, method = RequestMethod.POST)
-    public String editUser(@Valid @ModelAttribute("user") User user, BindingResult result,
+    public String editUser(@Valid @ModelAttribute("user") User userFromForm, BindingResult result,
                            @RequestParam(value = "photo", required = false)MultipartFile photo,
-                           RedirectAttributes redirectAttributes){
+                           RedirectAttributes redirectAttributes, @PathVariable String login){
+        User user = userService.findByLogin(login);
+//        log.trace("RECEIVED user object from EditForm: " + userFromForm);
+        user.setLogin(userFromForm.getLogin());
+        user.setEmail(userFromForm.getEmail());
+        user.setPassword(userFromForm.getPassword());
+
         if(result.hasErrors()){
             return "user/editUser";
         }
@@ -122,7 +135,7 @@ public class UserController implements ServletContextAware {
                 result.rejectValue("avatorPath","exception",e.getMessage());
                 return "user/editUser";
             }
-            userService.updateUser(user);
+            userService.mergeUser(user);
             redirectAttributes.addFlashAttribute("flashMessageEdit", messageSource.getMessage("flashMessageEdit", null, LocaleContextHolder.getLocale()));
             return "redirect:/user/list";
         }
