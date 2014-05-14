@@ -20,9 +20,8 @@
 <h2><spring:message code="editUser.header" /></h2>
 <div>
     <sf:form name="f" method="POST" modelAttribute="user" enctype="multipart/form-data">
-             <%--action="./editUser?${_csrf.parameterName}=${_csrf.token}">--%>
         <fieldset>
-            <input id="id" name="id" type="hidden" value="${user.id}"/>
+            <%--<input id="id" name="id" type="hidden" value="${user.id}"/>--%>
 
             <sf:label path="login"><spring:message code="editUser.label.login" /></sf:label>
             <sf:input path="login" id="login"/>
