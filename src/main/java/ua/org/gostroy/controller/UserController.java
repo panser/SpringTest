@@ -200,6 +200,8 @@ public class UserController implements ServletContextAware {
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
+//        binder.addValidators();
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(true);

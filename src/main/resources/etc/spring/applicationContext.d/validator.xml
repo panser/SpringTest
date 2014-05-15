@@ -7,4 +7,6 @@
             <property name="validationMessageSource" ref="messageSource"/>
         </bean>
 
+        <!--<bean id="methodValidation" class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->
+
 </beans>
