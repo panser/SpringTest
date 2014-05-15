@@ -15,17 +15,17 @@
 <body>
 <code>
 <fieldset>
-    <h1>Images of <font color="red">${images[0].user.login}</font></h1>
+    <h1>Images of <font color="red">${login}</font></h1>
     <table>
         <c:forEach items="${images}" var="image">
             <tr>
                 <td>
-                    <a href="<c:url value="${image.user.login}/${image.id}"/>">
+                    <a href="<c:url value="/image/${login}/${image.id}"/>">
                         <c:out value="${image.id}"/>
                     </a>
                 </td>
                 <td><c:out value="${image.imagePath}"/> </td>
-                <td><fmt:formatDate value="${image.createDate}" pattern="hh:mma MMM d, yyyy" /></td>
+                <td><fmt:formatDate value="${image.createDate}" pattern="d MMM,yyyy HH:mm" /></td>
             </tr>
         </c:forEach>
     </table>

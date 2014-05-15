@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td><label>User owner: </label></td>
-            <td><c:out value="${image.user.login}"/></td>
+            <td><c:out value="${login}"/></td>
         </tr>
         <tr>
             <td><label>Image server path: </label></td>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td><label>Image create date: </label></td>
-            <td><fmt:formatDate value="${image.createDate}" pattern="hh:mma MMM d, yyyy" /></td>
+            <td><fmt:formatDate value="${image.createDate}" pattern="d MMM,yyyy HH:mm" /></td>
         </tr>
     </table>
 </fieldset>

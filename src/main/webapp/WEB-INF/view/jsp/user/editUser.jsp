@@ -20,7 +20,7 @@
 </head>
 <body onload="document.f.login.focus();">
 <h2><spring:message code="editUser.header" /></h2>
-<div>
+<div id="container">
     <sf:form name="f" method="POST" modelAttribute="user" enctype="multipart/form-data">
         <fieldset>
             <%--<input id="id" name="id" type="hidden" value="${user.id}"/>--%>

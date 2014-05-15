@@ -19,7 +19,7 @@
 </head>
 <body onload="document.f.label.focus();">
 <h2><spring:message code="addUser.header" /></h2>
-    <div>
+    <div id="container">
 
         <sf:form name="f" method="POST" modelAttribute="user" enctype="application/x-www-form-urlencoded">
             <fieldset>

@@ -24,6 +24,7 @@
         <jasperreports-fonts.version>4.0.0</jasperreports-fonts.version>
         <springframework.security.version>3.2.3.RELEASE</springframework.security.version>
         <jackson2.version>2.3.3</jackson2.version>
+        <!--<jackson2.version>2.1.4</jackson2.version>-->
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -365,6 +366,19 @@
             <artifactId>jaxb-impl</artifactId>
             <version>2.1</version>
         </dependency>
+
+<!--
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+-->
         <!-- the core, which includes Streaming API, shared low-level abstractions (but NOT data-binding) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -384,14 +398,19 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
-<!--
-        &lt;!&ndash; JAX-RS provider &ndash;&gt;
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate4</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
--->
+        <!--
+                &lt;!&ndash; JAX-RS provider &ndash;&gt;
+                <dependency>
+                    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                    <artifactId>jackson-jaxrs-json-provider</artifactId>
+                    <version>${jackson2.version}</version>
+                </dependency>
+        -->
 <!--
         &lt;!&ndash; Support for JAX-B annotations as additional configuration &ndash;&gt;
         <dependency>
@@ -446,12 +465,10 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat6-maven-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <port>8081</port>
+                </configuration>
                 <version>2.2</version>
             </plugin>
             <plugin>

@@ -1,5 +1,6 @@
 package ua.org.gostroy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ public class User {
 //    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date birthDay;
 //    @Valid
+    @ElementCollection(fetch=FetchType.LAZY)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Image> imagesCollection = new HashSet<Image>();
 

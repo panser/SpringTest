@@ -19,6 +19,9 @@
         <a href="${pageContext.request.contextPath}/user/list" >USERS CRUD</a>
     </li>
     <li>
+        <a href="${pageContext.request.contextPath}/image/login8"    >Example REST interface(for login8)</a>
+    </li>
+    <li>
         test:
         <ul>
             <li>

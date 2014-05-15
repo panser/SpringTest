@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/image")
-@SessionAttributes({"image"})
+//@SessionAttributes({"image"})
 public class ImageController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -34,11 +35,13 @@ public class ImageController {
 //    HTTP CONTROLERS
     @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET)
     public String listImages(Model model, @PathVariable String login){
+        model.addAttribute("login", login);
         model.addAttribute("images", imageService.findByUserId_Login(login));
         return "image/list";
     }
     @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET)
     public String getImage(Model model, @PathVariable("login") String login, @PathVariable("id") String id){
+        model.addAttribute("login", login);
         model.addAttribute("image", imageService.find(Long.parseLong(id)));
         return "image/view";
     }
@@ -58,12 +61,12 @@ public class ImageController {
 
 
 //    REST CONTROLLERS
-    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers={"Accept=text/xml, application/json"})
-    public @ResponseBody List<Image> listImagesREST(@PathVariable String login){
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers={"Accept=application/json"})
+    @ResponseBody
+    public List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
     }
-//    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, produces="application/json")
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=text/xml, application/json"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=application/json"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Image getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
         log.trace("start getImageREST ...");
         return imageService.find(Long.parseLong(id));

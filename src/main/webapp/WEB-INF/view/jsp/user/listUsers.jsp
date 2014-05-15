@@ -21,9 +21,8 @@
 </head>
 <body>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
-<div>
-    <h2><spring:message code="listUsers.header" /></h2>
 
+    <div id="container">
     <span style="float: right">
         <security:authorize access="!isAuthenticated()">
             <c:url value="/login" var="url"/>
@@ -73,6 +72,10 @@
         |
         <a href="?lang=ru">ru</a>
     </span>
+    </div>
+
+    <div id="container">
+    <h2><spring:message code="listUsers.header" /></h2>
 
     <p>${flashMessageEdit}</p>
     <p>${flashMessageAdd}</p>
@@ -120,6 +123,6 @@
     <security:authorize url="/user/add">
         <input type="submit" value="<spring:message code="listUsers.button.add" />" onclick="window.location='add';" />
     </security:authorize>
-</div>
+    </div>
 </body>
 </html>

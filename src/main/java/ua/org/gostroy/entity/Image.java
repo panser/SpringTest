@@ -1,15 +1,18 @@
 package ua.org.gostroy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
  * Created by panser on 5/9/14.
  */
 @Entity
+//@XmlRootElement
 @Table(name = "images")
 public class Image {
     @Id
@@ -18,9 +21,10 @@ public class Image {
     @Version
     private Long version;
 
+    @JsonBackReference
     @NotNull
 //    @Valid
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
 
@@ -85,11 +89,9 @@ public class Image {
     public String toString() {
         return "Image{" +
                 "id=" + id +
-                ", version=" + version +
-                ", user=" + user +
+                ", user=" + user.getLogin() +
                 ", imagePath='" + imagePath + '\'' +
                 ", createDate=" + createDate +
-                ", deleteDate=" + deleteDate +
                 '}';
     }
 }
