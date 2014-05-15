@@ -4,6 +4,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: panser
@@ -81,13 +82,17 @@
         <c:forEach items="${users}" var="user">
             <tr>
                 <td><img src="<s:url value="${user.avatorPath}"/>" width="48" height="48" /></td>
-                <td><c:out value="${user.id}"/> </td>
-                <td>
-                    <%--<a href="<s:url value="edit/${user.login}"/>" />--%>
-                    <c:out value="${user.login}"/>
-                </td>
-                <td><c:out value="${user.email}"/> </td>
-                <td><c:out value="${user.password}"/> </td>
+                <td>${user.id}</td>
+                <td>${user.login}</td>
+                <td>${user.email}</td>
+                <td>${user.password}</td>
+                <%--<td>${user.birthDay}</td>--%>
+                <%--use @DateTimeFormat--%>
+                <td><spring:eval expression="user.birthDay" /></td>
+<%--
+                use fmt:formatDate
+                <td><fmt:formatDate value="${user.birthDay}" pattern="dd.MM.yyyy" /></td>
+--%>
                 <security:authorize url="/user/edit/">
                     <td>
                         <form method="get" action="edit/${user.login}">

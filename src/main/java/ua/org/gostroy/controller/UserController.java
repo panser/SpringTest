@@ -4,11 +4,14 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +26,8 @@ import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by panser on 4/16/14.
@@ -91,6 +96,7 @@ public class UserController implements ServletContextAware {
         user.setLogin(userFromForm.getLogin());
         user.setEmail(userFromForm.getEmail());
         user.setPassword(userFromForm.getPassword());
+        user.setBirthDay(userFromForm.getBirthDay());
 
         if(result.hasErrors()){
             return "user/addUser";
@@ -115,10 +121,12 @@ public class UserController implements ServletContextAware {
                            @RequestParam(value = "photo", required = false)MultipartFile photo,
                            RedirectAttributes redirectAttributes, @PathVariable String login){
         User user = userService.findByLogin(login);
-//        log.trace("RECEIVED user object from EditForm: " + userFromForm);
+        log.trace("RECEIVED user object from EditForm: " + userFromForm);
         user.setLogin(userFromForm.getLogin());
         user.setEmail(userFromForm.getEmail());
         user.setPassword(userFromForm.getPassword());
+        user.setBirthDay(userFromForm.getBirthDay());
+        log.trace("SAVED user object: " + user);
 
         if(result.hasErrors()){
             return "user/editUser";
@@ -188,5 +196,14 @@ public class UserController implements ServletContextAware {
         log.trace("finish deleteUser with login: " + login + ".");
         redirectAttributes.addFlashAttribute("flashMessageDelete", messageSource.getMessage("flashMessageDelete", null, LocaleContextHolder.getLocale()));
         return "redirect:/user/list";
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 }

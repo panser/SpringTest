@@ -11,6 +11,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
@@ -24,15 +25,19 @@
             <fieldset>
                 <sf:label path="login"><spring:message code="addUser.label.login" /></sf:label>
                 <sf:input path="login" id="login"/>
-                <sf:errors path="login" cssClass="error" />
+                <sf:errors path="login"/>
                 <p/>
                 <sf:label path="email"><spring:message code="addUser.label.email" /></sf:label>
                 <sf:input path="email" id="email"/>
-                <sf:errors path="email" cssClass="error" />
+                <sf:errors path="email"/>
                 <p/>
                 <sf:label path="password"><spring:message code="addUser.label.password" /></sf:label>
                 <sf:password path="password" id="password" showPassword="true"/>
-                <sf:errors path="password" cssClass="error" />
+                <sf:errors path="password"/>
+                <p/>
+                <sf:label path="birthDay"><spring:message code="addUser.label.birthDay" /></sf:label>
+                <sf:input path="birthDay" id="dateInput" placeholder="dd.MM.yyyy"/>
+                <sf:errors path="birthDay"/>
                 <p/>
                 <spring:hasBindErrors name="user">
                     <b>Please fix all errors!</b>

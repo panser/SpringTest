@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: panser
@@ -25,20 +27,29 @@
 
             <sf:label path="login"><spring:message code="editUser.label.login" /></sf:label>
             <sf:input path="login" id="login"/>
-            <sf:errors path="login" cssClass="error" />
+            <sf:errors path="login"/>
             <p/>
             <sf:label path="email"><spring:message code="editUser.label.email" /></sf:label>
             <sf:input path="email" id="email"/>
-            <sf:errors path="email" cssClass="error" />
+            <%--<input type="email" path="email" id="email"/>--%>
+            <sf:errors path="email"/>
             <p/>
             <sf:label path="password"><spring:message code="editUser.label.password" /></sf:label>
-            <sf:password path="password" showPassword="yes" id="password"/>
-            <sf:errors path="password" cssClass="error" />
+            <sf:password path="password" showPassword="true" id="password"/>
+            <sf:errors path="password"/>
             <p/>
-            <%--<label>Profile image:</label>--%>
             <sf:label path="avatorPath"><spring:message code="editUser.label.avatorPath" /></sf:label>
             <input name="photo" type="file">
-            <sf:errors path="avatorPath" cssClass="error" />
+            <sf:errors path="avatorPath"/>
+            <p/>
+            <sf:label path="birthDay"><spring:message code="editUser.label.birthDay" /></sf:label>
+<%--
+            <fmt:formatDate value="${user.birthDay}" pattern="yyyy-MM-dd" var="patternBirthDay"/>
+            <form:input path="birthDay" value="${patternBirthDay}"/>
+--%>
+            <form:input path="birthDay" id="birthDay" placeholder="dd.MM.yyyy"/>
+            <%--<input type="date" path="birthDay" value="<fmt:formatDate value="${user.birthDay}" pattern="yyyy-MM-dd"/>"/>--%>
+            <sf:errors path="birthDay"/>
             <p/>
 
             <input name="commit" type="submit" value="<spring:message code="editUser.button.save" />" />
