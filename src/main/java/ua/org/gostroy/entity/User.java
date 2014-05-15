@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,6 +25,7 @@ public class User {
     @Version
     private Long version;
     @Size(min = 5, max = 20)
+//    @Size(min = 5, max = 20, message = "{Size.user.login}")
     private String login;
     @Email
     private String email;
@@ -35,6 +35,9 @@ public class User {
     private Date createDate;
     @DateTimeFormat
     private Date deleteDate;
+    @DateTimeFormat(pattern="dd.MM.yyyy")
+//    @DateTimeFormat(pattern="MM/dd/yyyy")
+    private Date birthDay;
 //    @Valid
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Image> imagesCollection = new HashSet<Image>();
@@ -115,6 +118,14 @@ public class User {
         this.imagesCollection = imagesCollection;
     }
 
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -122,6 +133,8 @@ public class User {
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", avatorPath='" + avatorPath + '\'' +
+                ", birthDay=" + birthDay +
                 '}';
     }
 }
