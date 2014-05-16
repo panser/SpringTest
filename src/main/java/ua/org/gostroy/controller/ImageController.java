@@ -80,7 +80,8 @@ public class ImageController {
     }
     @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers = "Content-Type=application/json", consumes = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Image createImageREST(@Valid @RequestBody String jsonImage,@PathVariable("login") String login, HttpServletResponse response){
+    @ResponseBody
+    public Image createImageREST(@Valid @RequestBody String jsonImage,@PathVariable("login") String login, HttpServletResponse response){
         Image image = null;
         try{
             image = new ObjectMapper().readValue(jsonImage, Image.class);
@@ -89,6 +90,15 @@ public class ImageController {
         response.setHeader("Location", "/"+ login + "/"  + image.getId());
         return image;
     }
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @ResponseBody
+    public Image createImageREST2(@RequestBody Image image) {
+        log.info("Start createImageREST2 ...");
+        imageService.merge(image);
+        return image;
+    }
+
+
     @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.PUT, headers="Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateImageREST(@Valid @RequestBody Image image,@PathVariable("login") String login, @PathVariable("id") String id) {

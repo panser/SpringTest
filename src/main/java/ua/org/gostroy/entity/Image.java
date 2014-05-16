@@ -1,6 +1,8 @@
 package ua.org.gostroy.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -29,6 +31,7 @@ public class Image {
     private User user;
 
     private String imagePath;
+//    @JsonSerialize(using=DateSerializer.class)
     @DateTimeFormat
     private Date createDate;
     @DateTimeFormat

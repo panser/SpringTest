@@ -16,7 +16,8 @@ import java.util.Set;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/etc/spring/applicationContext.xml")
+@ContextConfiguration({"classpath:/etc/spring/applicationContext.xml", "classpath:/etc/spring/applicationContext.d/*",
+        "classpath:/etc/spring/servletContext.xml", "classpath:/etc/spring/servletContext.d/*"})
 public class UserServiceTest {
     @Autowired(required = true)
     UserService userService;
