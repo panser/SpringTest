@@ -66,14 +66,14 @@ public class ImageController {
 
 
 //    REST CONTROLLERS
-    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers={"Accept=application/xml, application/json"},
-        consumes = MediaType.ALL_VALUE)
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
     }
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=application/xml, application/json"},
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public @ResponseBody Image getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
         log.trace("start getImageREST ...");
         return imageService.find(Long.parseLong(id));
@@ -90,7 +90,8 @@ public class ImageController {
         response.setHeader("Location", "/"+ login + "/"  + image.getId());
         return image;
     }
-    @RequestMapping(value = {"/{login}"}, method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.POST,
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Image createImageREST2(@RequestBody Image image) {
         log.info("Start createImageREST2 ...");
