@@ -7,23 +7,36 @@
     <!-- Configures the @Controller programming model -->
     <!--<mvc:annotation-driven validator="validator"/>-->
     <mvc:annotation-driven validator="validator" content-negotiation-manager="contentNegotiationManager">
-<!--
         <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>-->
+<!--
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>image/jpeg</value>
+                        <value>image/png</value>
+                        <value>image/gif</value>
+                    </list>
+                </property>
+            </bean>/
+-->
             <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
-            &lt;!&ndash;<bean class="org.springframework.http.converter.ObjectToStringHttpMessageConverter"/>&ndash;&gt;
-            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+            <!--<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.ObjectToStringHttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>-->
 
-            <bean class="org.springframework.http.converter.feed.AtomFeedHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.feed.RssChannelHttpMessageConverter"/>
+            <!--<bean class="org.springframework.http.converter.feed.AtomFeedHttpMessageConverter"/>-->
+            <!--<bean class="org.springframework.http.converter.feed.RssChannelHttpMessageConverter"/>-->
 
-            <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+            <!--<bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>-->
 
-            <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
-            &lt;!&ndash;<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"/>&ndash;&gt;
+            <!--<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>-->
+            <bean id="marshallingHttpMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                <property name="marshaller" ref="oxmMarshaller"></property>
+                <property name="unmarshaller" ref="oxmMarshaller"></property>
+            </bean>
 
+<!--
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 &lt;!&ndash;<property name="objectMapper" ref="jacksonObjectMapper"/>&ndash;&gt;
 &lt;!&ndash;
@@ -32,9 +45,10 @@
                 </property>
 &ndash;&gt;
             </bean>
-        </mvc:message-converters>
 -->
+        </mvc:message-converters>
     </mvc:annotation-driven>
+    <bean class="org.springframework.oxm.xstream.XStreamMarshaller" id="oxmMarshaller"></bean>
 
     <!--<bean id="jacksonObjectMapper" class="de.Company.backend.web.CompanyObjectMapper" />-->
 
@@ -45,6 +59,7 @@
             <value>
                 json=application/json
                 xml=application/xml
+                file=multipart/form-data
             </value>
         </property>
     </bean>

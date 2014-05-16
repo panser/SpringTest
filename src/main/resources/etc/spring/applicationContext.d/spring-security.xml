@@ -13,6 +13,7 @@
     <http pattern="/errors/**" security="none"/>
     <http pattern="/resources/**" security="none"/>
     <http pattern="/image/**" security="none"/>
+    <http pattern="/user/avator/**" security="none"/>
 
 <!--
     &lt;!&ndash; Stateless RESTful service using Basic authentication &ndash;&gt;

@@ -1,6 +1,7 @@
 package ua.org.gostroy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import ua.org.gostroy.entity.Image;
 import ua.org.gostroy.service.ImageService;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -61,12 +66,14 @@ public class ImageController {
 
 
 //    REST CONTROLLERS
-    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers={"Accept=application/json"})
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, headers={"Accept=application/xml, application/json"},
+        consumes = MediaType.ALL_VALUE)
     @ResponseBody
     public List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
     }
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=application/json"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, headers={"Accept=application/xml, application/json"},
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Image getImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
         log.trace("start getImageREST ...");
         return imageService.find(Long.parseLong(id));
@@ -92,4 +99,5 @@ public class ImageController {
     public void deleteImageREST(@PathVariable("login") String login, @PathVariable("id") String id){
         imageService.delete(Long.parseLong(id));
     }
+
 }

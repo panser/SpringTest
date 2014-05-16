@@ -22,10 +22,15 @@ import ua.org.gostroy.service.UserService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -59,6 +64,16 @@ public class UserController implements ServletContextAware {
     @Override
     public void setServletContext(ServletContext servletContext) {
         this.context = servletContext;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
     @RequestMapping("/")
@@ -198,14 +213,22 @@ public class UserController implements ServletContextAware {
         return "redirect:/user/list";
     }
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-//        binder.addValidators();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    @RequestMapping(value = "/avator/{login}", headers = "Accept=image/jpeg, image/jpg, image/png, image/gif", method = RequestMethod.GET)
+    @ResponseBody
+    public BufferedImage getAvator(@PathVariable String login) {
+        User user = userService.findByLogin(login);
+        String pathAvator = user.getAvatorPath();
+        pathAvator = pathAvator.split("resources/")[1];
+        try {
+//            InputStream inputStream = this.getClass().getResourceAsStream("myimage.jpg");
+            InputStream inputStream = new FileInputStream("C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/staticresources/" + pathAvator);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            Graphics g = bufferedImage.getGraphics();
+            g.drawString("gostroy.org.ua",20,20);
+            return bufferedImage;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }

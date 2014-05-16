@@ -84,7 +84,8 @@
     <table>
         <c:forEach items="${users}" var="user">
             <tr>
-                <td><img src="<s:url value="${user.avatorPath}"/>" width="48" height="48" /></td>
+                <%--<td><img src="<s:url value="${user.avatorPath}"/>" width="48" height="48" /></td>--%>
+                <td><img src="avator/${user.login}" width="48" height="48" /></td>
                 <td>${user.id}</td>
                 <td>${user.login}</td>
                 <td>${user.email}</td>
