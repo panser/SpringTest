@@ -152,7 +152,8 @@ public class UserController implements ServletContextAware {
                 if(!photo.isEmpty()){
                     validateImage(photo);
                     String destinationPath = saveImage(photo, user.getId());
-                    user.setAvatorPath("/resources" + destinationPath);
+                    user.setAvatorPath(destinationPath);
+//                    user.setAvatorPath("/resources" + destinationPath);
                 }
             }catch (ImageUploadException e){
                 result.rejectValue("avatorPath","exception",e.getMessage());
@@ -218,17 +219,26 @@ public class UserController implements ServletContextAware {
     public BufferedImage getAvator(@PathVariable String login) {
         User user = userService.findByLogin(login);
         String pathAvator = user.getAvatorPath();
-        pathAvator = pathAvator.split("resources/")[1];
+        if(pathAvator != null){
+            try {
+    //            InputStream inputStream = this.getClass().getResourceAsStream("myimage.jpg");
+                InputStream inputStream = new FileInputStream("C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/staticresources/" + pathAvator);
+                BufferedImage bufferedImage = ImageIO.read(inputStream);
+                Graphics g = bufferedImage.getGraphics();
+                g.drawString("gostroy.org.ua",20,20);
+                return bufferedImage;
+            } catch (IOException e) {
+                log.trace("EXCEPTION while read avator image");
+                throw new RuntimeException(e);
+            }
+        }
         try {
-//            InputStream inputStream = this.getClass().getResourceAsStream("myimage.jpg");
-            InputStream inputStream = new FileInputStream("C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/staticresources/" + pathAvator);
-            BufferedImage bufferedImage = ImageIO.read(inputStream);
-            Graphics g = bufferedImage.getGraphics();
-            g.drawString("gostroy.org.ua",20,20);
-            return bufferedImage;
+            InputStream inputStreamDef = new FileInputStream("C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/src/main/resources/avator_default.jpg");
+            BufferedImage bufferedImageDefault = ImageIO.read(inputStreamDef);
+            return bufferedImageDefault;
         } catch (IOException e) {
+            log.trace("EXCEPTION while read default avator image");
             throw new RuntimeException(e);
         }
     }
-
 }
