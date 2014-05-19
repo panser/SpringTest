@@ -1,0 +1,14 @@
+<html>
+<body>
+<img src='cid:accountLogo'>
+<table>
+    <tr>
+        <td>login: </td>
+        <td>${login}</td>
+    </tr>
+    <tr>
+        <td>password: </td>
+        <td>${password}</td>
+    </tr>
+</table></body>
+</html>

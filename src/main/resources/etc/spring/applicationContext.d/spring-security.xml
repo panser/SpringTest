@@ -31,6 +31,7 @@
 
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/login**" access="isAnonymous()"/>
+        <intercept-url pattern="/register**" access="isAnonymous()"/>
         <!--not work-->
         <intercept-url pattern="/logout**" access="isAuthenticated()"/>
         <intercept-url pattern="/timeout**" access="permitAll"/>
@@ -76,17 +77,19 @@
     </http>
 
     <authentication-manager id="authenticationManager">
-        <authentication-provider user-service-ref="userServiceInMemory" />
+        <!--<authentication-provider user-service-ref="userServiceInMemory" />-->
         <authentication-provider user-service-ref="userServiceOverJdbc" />
     </authentication-manager>
+<!--
     <user-service id="userServiceInMemory">
         <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER" />
         <user name="user1" password="1111" authorities="ROLE_USER" />
         <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
     </user-service>
+-->
     <jdbc-user-service id="userServiceOverJdbc" data-source-ref="dataSource"
-        users-by-username-query="select login, password, true from users where login=?"
-        authorities-by-username-query="select login,'ROLE_ADMIN' from users where login=?"
+        users-by-username-query="select login, password, enabled from users where login=?"
+        authorities-by-username-query="select login,role from users where login=?"
     />
 
 

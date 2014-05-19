@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:oxm="http://www.springframework.org/schema/oxm" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd">
+
+<!--
+    <oxm:jaxb2-marshaller id="jaxb2-marshaller" contextPath="org.springframework.ws.samples.airline.schema"/>
+    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>org.springframework.oxm.jaxb.Flight</value>
+                <value>org.springframework.oxm.jaxb.Flights</value>
+            </list>
+        </property>
+        <property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/>
+    </bean>
+-->
+
+<!--
+    <oxm:castor-marshaller id="castor-marshaller" mapping-location="classpath:org/springframework/oxm/castor/mapping.xml"/>
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />
+-->
+
+<!--
+    <oxm:xmlbeans-marshaller id="xmlbeans-marshaller"/>
+    <bean id="xmlBeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
+-->
+
+<!--
+    <oxm:jibx-marshaller id="marshaller" target-class="org.springframework.ws.samples.airline.schema.Flight"/>
+    <bean id="jibxFlightsMarshaller" class="org.springframework.oxm.jibx.JibxMarshaller">
+        <property name="targetClass">org.springframework.oxm.jibx.Flights</property>
+    </bean>
+-->
+
+<!--
+    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+        <property name="aliases">
+            <props>
+                <prop key="Flight">org.springframework.oxm.xstream.Flight</prop>
+            </props>
+        </property>
+    </bean>
+-->
+
+</beans>

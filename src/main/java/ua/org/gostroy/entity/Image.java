@@ -1,11 +1,14 @@
 package ua.org.gostroy.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
@@ -14,7 +17,6 @@ import java.util.Date;
  * Created by panser on 5/9/14.
  */
 @Entity
-//@XmlRootElement
 @Table(name = "images")
 public class Image {
     @Id
@@ -24,13 +26,16 @@ public class Image {
     private Long version;
 
     @JsonBackReference
-    @NotNull
-//    @Valid
+//    @JsonManagedReference
+//    @NotNull
+    @Valid
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
 
     private String imagePath;
+    private byte[] image;
 //    @JsonSerialize(using=DateSerializer.class)
     @DateTimeFormat
     private Date createDate;
@@ -38,6 +43,16 @@ public class Image {
     private Date deleteDate;
 
     public Image() {
+    }
+
+    public Image(User user, String imagePath) {
+        this.user = user;
+        this.imagePath = imagePath;
+    }
+
+    public Image(String imagePath, byte[] image) {
+        this.imagePath = imagePath;
+        this.image = image;
     }
 
     public Long getId() {
@@ -86,6 +101,14 @@ public class Image {
 
     public void setDeleteDate(Date deleteDate) {
         this.deleteDate = deleteDate;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override

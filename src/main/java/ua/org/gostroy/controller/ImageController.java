@@ -7,13 +7,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.org.gostroy.entity.Image;
+import ua.org.gostroy.entity.User;
 import ua.org.gostroy.service.ImageService;
+import ua.org.gostroy.service.UserService;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -36,15 +41,17 @@ public class ImageController {
 
     @Autowired(required = true)
     private ImageService imageService;
+    @Autowired(required = true)
+    private UserService userService;
 
 //    HTTP CONTROLERS
-    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET, produces = {MediaType.TEXT_HTML_VALUE})
     public String listImages(Model model, @PathVariable String login){
         model.addAttribute("login", login);
         model.addAttribute("images", imageService.findByUserId_Login(login));
         return "image/list";
     }
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET)
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET, produces = {MediaType.TEXT_HTML_VALUE})
     public String getImage(Model model, @PathVariable("login") String login, @PathVariable("id") String id){
         model.addAttribute("login", login);
         model.addAttribute("image", imageService.find(Long.parseLong(id)));
@@ -69,8 +76,10 @@ public class ImageController {
     @RequestMapping(value = {"/{login}"}, method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
+//    public User listImagesREST(@PathVariable String login){
     public List<Image> listImagesREST(@PathVariable String login){
         return imageService.findByUserId_Login(login);
+//        return userService.findByLogin(login);
     }
     @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -78,33 +87,60 @@ public class ImageController {
         log.trace("start getImageREST ...");
         return imageService.find(Long.parseLong(id));
     }
-    @RequestMapping(value = {"/{login}"}, method=RequestMethod.POST, headers = "Content-Type=application/json", consumes = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Image createImageREST(@Valid @RequestBody String jsonImage,@PathVariable("login") String login, HttpServletResponse response){
-        Image image = null;
-        try{
-            image = new ObjectMapper().readValue(jsonImage, Image.class);
-            imageService.merge(image);
-        } catch (IOException e){}
-        response.setHeader("Location", "/"+ login + "/"  + image.getId());
-        return image;
-    }
+
     @RequestMapping(value = {"/{login}"}, method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Image createImageREST2(@RequestBody Image image) {
-        log.info("Start createImageREST2 ...");
+    public Image createImageREST(@RequestBody Image image, @RequestParam("test") int test) {
+        if(test == 1){
+            User userT = userService.findByLogin("jUnit");
+            TestingAuthenticationToken testingAuthenticationToken = new TestingAuthenticationToken(userT,null);
+            SecurityContextHolder.getContext().setAuthentication(testingAuthenticationToken);
+        }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.trace("createImageREST: principal = " + principal);
+        User user = null;
+        if (principal instanceof User) {
+            user = (User) principal;
+        } else {
+            throw new RuntimeException("Authorize, please");
+        }
+
+        image.setUser(user);
+
+        log.info("Start createImageREST ...");
         imageService.merge(image);
         return image;
     }
 
-
-    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.PUT, headers="Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.PUT,
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateImageREST(@Valid @RequestBody Image image,@PathVariable("login") String login, @PathVariable("id") String id) {
+    public void updateImageREST(@RequestBody Image imageFromRest, @RequestParam("test") int test, @PathVariable("id") String id) {
+        if(test == 1){
+            User userT = userService.findByLogin("jUnit");
+            TestingAuthenticationToken testingAuthenticationToken = new TestingAuthenticationToken(userT,null);
+            SecurityContextHolder.getContext().setAuthentication(testingAuthenticationToken);
+        }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.trace("createImageREST: principal = " + principal);
+        User user = null;
+        if (principal instanceof User) {
+            user = (User) principal;
+        } else {
+            throw new RuntimeException("Authorize, please");
+        }
+
+        Image image = imageService.find(Long.parseLong(id));
+        image.setImagePath(imageFromRest.getImagePath());
+        image.setImage(imageFromRest.getImage());
+        image.setUser(user);
+
+        log.info("Start updateImageREST ...");
         imageService.merge(image);
     }
+
     @RequestMapping(value = {"/{login}/{id}"}, method=RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteImageREST(@PathVariable("login") String login, @PathVariable("id") String id){

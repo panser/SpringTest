@@ -57,9 +57,9 @@ public class UserController implements ServletContextAware {
 
     @Autowired(required = true)
     private UserService userService;
+
     @Autowired(required = true)
     private MessageSource messageSource;
-
     ServletContext context;
     @Override
     public void setServletContext(ServletContext servletContext) {
@@ -233,7 +233,7 @@ public class UserController implements ServletContextAware {
             }
         }
         try {
-            InputStream inputStreamDef = new FileInputStream("C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/src/main/resources/avator_default.jpg");
+            InputStream inputStreamDef = new FileInputStream("C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/src/main/resources/templates/avator_default.jpg");
             BufferedImage bufferedImageDefault = ImageIO.read(inputStreamDef);
             return bufferedImageDefault;
         } catch (IOException e) {

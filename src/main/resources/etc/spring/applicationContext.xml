@@ -12,11 +12,21 @@
     <context:component-scan base-package="ua.org.gostroy.dao"/>
     <context:component-scan base-package="ua.org.gostroy.service"/>
 
-    <context:property-placeholder properties-ref="deployProperties" />
+    <context:property-placeholder properties-ref="deployProperties" system-properties-mode="FALLBACK"/>
+    <!--<context:property-override properties-ref="deployProperties"/>-->
     <bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations" value="classpath:/etc/properties/*.properties.${type}"/>
         <!--<property name="location" value="classpath:/etc/properties/app.#{systemProperties[‘ENV']}.properties" />-->
     </bean>
-    <!--<util:properties id="AppProps" location="classpath:/etc/properties/app.properties"/>-->
+    <!--свойства по-умолчанию-->
+<!--
+    <util:properties id="AppProps" location="classpath:/etc/properties/app.properties"/>
+    <util:properties id="defaultConfiguration">
+        <prop key="jdbc.url">jdbc:hsqldb:hsql://localhost/spitter/spitter</prop>
+        <prop key="jdbc.driverClassName">org.hsqldb.jdbcDriver</prop>
+        <prop key="jdbc.username">spitterAdmin</prop>
+        <prop key="jdbc.password">t0ps3cr3t</prop>
+    </util:properties>
+-->
 
 </beans>

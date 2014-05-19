@@ -40,8 +40,9 @@
             <td><input type="checkbox" name="_spring_security_remember_me" /></td>
         </tr>
         <tr>
-            <td colspan="2" align="right">
+            <td colspan="3" align="right">
                 <input type="submit" value="<spring:message code="springSecurity.submit" />" />
+                <a href="<c:url value="/register"/> ">Register</a>
                 <input type="button" class="back-button" onclick="history.back();" value="<spring:message code="button.back" />" />
             </td>
         </tr>

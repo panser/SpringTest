@@ -32,25 +32,21 @@
 
             <!--<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>-->
             <bean id="marshallingHttpMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-                <property name="marshaller" ref="oxmMarshaller"></property>
-                <property name="unmarshaller" ref="oxmMarshaller"></property>
+                <property name="marshaller" ref="xStreamMarshaller"></property>
+                <property name="unmarshaller" ref="xStreamMarshaller"></property>
+                <!--<property name="marshaller" ref="castorMarshaller"></property>-->
+                <!--<property name="unmarshaller" ref="castorMarshaller"></property>-->
             </bean>
-
-<!--
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                &lt;!&ndash;<property name="objectMapper" ref="jacksonObjectMapper"/>&ndash;&gt;
-&lt;!&ndash;
                 <property name="objectMapper">
-                    <bean class="path.to.your.HibernateAwareObjectMapper" />
+                    <bean class="ua.org.gostroy.json.jackson.HibernateAwareObjectMapper" />
                 </property>
-&ndash;&gt;
             </bean>
--->
         </mvc:message-converters>
     </mvc:annotation-driven>
-    <bean class="org.springframework.oxm.xstream.XStreamMarshaller" id="oxmMarshaller"></bean>
+    <bean id="xStreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller"></bean>
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>
 
-    <!--<bean id="jacksonObjectMapper" class="de.Company.backend.web.CompanyObjectMapper" />-->
 
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="true" />

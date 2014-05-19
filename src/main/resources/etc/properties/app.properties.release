@@ -16,3 +16,6 @@ db.hibernate.connection.characterEncoding = UTF-8
 db.hibernate.connection.charSet = UTF-8
 
 #app.mvc.resources="file:///C:/Users/panser/Dropbox/02.home/IdeaProjects/TEMPLATE/SpringTest/staticresources/"
+value.server_uri=http://localhost:8081/SpringTest
+
+mailserver.host=192.168.1.102

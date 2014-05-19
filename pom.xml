@@ -403,13 +403,6 @@
             <artifactId>jackson-core</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
-        <!-- Just the annotations; use this dependency if you want to attach annotations
-             to classes without connecting them to the code. -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson2.version}</version>
-        </dependency>
         <!-- databinding; ObjectMapper, JsonNode and related classes are here -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -421,14 +414,13 @@
             <artifactId>jackson-datatype-hibernate4</artifactId>
             <version>${jackson2.version}</version>
         </dependency>
-        <!--
-                &lt;!&ndash; JAX-RS provider &ndash;&gt;
-                <dependency>
-                    <groupId>com.fasterxml.jackson.jaxrs</groupId>
-                    <artifactId>jackson-jaxrs-json-provider</artifactId>
-                    <version>${jackson2.version}</version>
-                </dependency>
-        -->
+        <!-- Just the annotations; use this dependency if you want to attach annotations
+             to classes without connecting them to the code. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson2.version}</version>
+        </dependency>
 <!--
         &lt;!&ndash; Support for JAX-B annotations as additional configuration &ndash;&gt;
         <dependency>
@@ -437,6 +429,14 @@
             <version>${jackson2.version}</version>
         </dependency>
 -->
+        <!--
+                &lt;!&ndash; JAX-RS provider &ndash;&gt;
+                <dependency>
+                    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                    <artifactId>jackson-jaxrs-json-provider</artifactId>
+                    <version>${jackson2.version}</version>
+                </dependency>
+        -->
 
         <dependency>
             <groupId>javax.el</groupId>
@@ -444,6 +444,11 @@
             <version>2.2.1-b04</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
 
     </dependencies>
 

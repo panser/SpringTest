@@ -33,6 +33,10 @@
             <td><label>Image create date: </label></td>
             <td><fmt:formatDate value="${image.createDate}" pattern="d MMM,yyyy HH:mm" /></td>
         </tr>
+        <tr>
+            <td><label>Image: </label></td>
+            <td>${image.image}</td>
+        </tr>
     </table>
 </fieldset>
 </body>

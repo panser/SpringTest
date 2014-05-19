@@ -1,12 +1,15 @@
 package ua.org.gostroy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
@@ -31,21 +34,33 @@ public class User {
     @Email
     private String email;
     private String password;
+    private boolean enabled;
+    private String role;
     private String avatorPath;
     @DateTimeFormat
     private Date createDate;
     @DateTimeFormat
     private Date deleteDate;
     @DateTimeFormat(pattern="dd.MM.yyyy")
-//    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date birthDay;
-//    @Valid
+    @Valid
+//    @JsonBackReference
+    @JsonManagedReference
+//    @ElementCollection(fetch=FetchType.EAGER)
     @ElementCollection(fetch=FetchType.LAZY)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Image> imagesCollection = new HashSet<Image>();
 
     public User() {
 //        log.trace("create new User ...");
+        enabled = true;
+        role = "ROLE_USER";
+    }
+
+    public User(String login) {
+        this.login = login;
+        enabled = true;
+        role = "ROLE_USER";
     }
 
     public Integer getId() {
@@ -86,6 +101,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getAvatorPath() {
