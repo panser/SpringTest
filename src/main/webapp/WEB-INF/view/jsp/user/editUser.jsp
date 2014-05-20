@@ -24,7 +24,7 @@
     <sf:form name="f" method="POST" modelAttribute="user" enctype="multipart/form-data">
         <fieldset>
             <%--<input id="id" name="id" type="hidden" value="${user.id}"/>--%>
-
+            <legend>Edit User</legend>
             <sf:label path="login"><spring:message code="editUser.label.login" /></sf:label>
             <sf:input path="login" id="login"/>
             <sf:errors path="login"/>

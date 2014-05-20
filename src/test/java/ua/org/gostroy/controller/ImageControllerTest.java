@@ -15,6 +15,7 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,6 +38,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/etc/spring/applicationContext.xml", "classpath:/etc/spring/applicationContext.d/*",
         "classpath:/etc/spring/servletContext.xml", "classpath:/etc/spring/servletContext.d/*"})
+//@ActiveProfiles("test")
 public class ImageControllerTest {
     private final Logger log = LoggerFactory.getLogger(getClass());
     //    public String SERVER_URI="http://localhost:8081/SpringTest";

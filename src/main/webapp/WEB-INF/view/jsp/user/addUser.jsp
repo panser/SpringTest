@@ -23,6 +23,7 @@
 
         <sf:form name="f" method="POST" modelAttribute="user" enctype="application/x-www-form-urlencoded">
             <fieldset>
+                <legend>Add User</legend>
                 <sf:label path="login"><spring:message code="addUser.label.login" /></sf:label>
                 <sf:input path="login" id="login"/>
                 <sf:errors path="login"/>

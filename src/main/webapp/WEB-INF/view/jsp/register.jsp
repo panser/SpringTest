@@ -23,6 +23,7 @@
 
     <sf:form name="f" method="POST" modelAttribute="user" enctype="application/x-www-form-urlencoded">
         <fieldset>
+            <legend>Register</legend>
             <sf:label path="login">Username: </sf:label>
             <sf:input path="login" id="login"/>
             <sf:errors path="login"/>
