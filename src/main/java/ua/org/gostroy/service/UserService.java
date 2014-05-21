@@ -21,15 +21,15 @@ import java.util.Set;
 public class UserService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private UserDAO userDAO;
 //    @Autowired
-//    UserRepository userRepository;
+//    private UserDAO userDAO;
+    @Autowired
+    UserRepository userDAO;
 
     @Transactional(readOnly = true)
     public User findUserById(final Integer id) {
         log.trace("Find User with id = " + id + " ...");
-        User user = userDAO.find(id);
+        User user = userDAO.findOne(id);
         if (user != null) {
             log.trace("Find User with id: " + user.getId());
             return user;
@@ -56,7 +56,7 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public User updateUser(final User user) throws ConstraintViolationException {
         log.trace("Update User in repositories with id = " + user.getId() + " ...");
-        userDAO.update(user);
+        userDAO.save(user);
         log.trace("Updated User in repositories with id = " + user.getId());
         return user;
     }

@@ -26,12 +26,13 @@ public class UserImplJPA implements UserDAO {
     private EntityManager em;
 
     @Override
-    public User find(Integer id) {
+    public User findOne(Integer id) {
         return em.find(User.class, id);
     }
 
     @Override
     public Set<User> findAll() {
+        log.trace("RUN JPA!!!!/n/n/n");
         Query query = em.createQuery("SELECT e FROM User e");
         List users =  (List<User>) query.getResultList();
         return new HashSet<User>(users);
@@ -41,10 +42,5 @@ public class UserImplJPA implements UserDAO {
     public Integer save(User user) {
         em.merge(user);
         return user.getId();
-    }
-
-    @Override
-    public void update(User user) {
-        em.merge(user);
     }
 }

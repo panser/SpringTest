@@ -12,7 +12,7 @@ import java.util.Set;
 //@Repository
 public class UserImplJDBC extends NamedParameterJdbcDaoSupport implements UserDAO {
     @Override
-    public User find(Integer id) {
+    public User findOne(Integer id) {
 //        getNamedParameterJdbcTemplate().
         return null;
     }
@@ -25,10 +25,5 @@ public class UserImplJDBC extends NamedParameterJdbcDaoSupport implements UserDA
     @Override
     public Integer save(User user) {
         return null;
-    }
-
-    @Override
-    public void update(User user) {
-
     }
 }

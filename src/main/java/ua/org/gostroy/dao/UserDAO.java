@@ -10,8 +10,7 @@ import java.util.Set;
  * Created by panser on 4/16/14.
  */
 public interface UserDAO {
-    User find(Integer id);
+    User findOne(Integer id);
     Set<User> findAll();
     Integer save(User user);
-    void update(User user);
 }

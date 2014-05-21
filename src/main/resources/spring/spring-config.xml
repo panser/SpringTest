@@ -8,7 +8,6 @@
     <context:annotation-config />
     <context:component-scan base-package="ua.org.gostroy"/>
     <context:property-placeholder location="/app.properties"></context:property-placeholder>
-    <jpa:repositories base-package="ua.org.gostroy.repositories"/>
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="${db.jdbc.driver}"/>
@@ -66,16 +65,17 @@
 
             <!--CHANGE over HIBERNATE, JPA, JDBC, Spring DataJPA-->
 <!--#############################################-->
-    <bean id="userDAO" class="ua.org.gostroy.dao.UserImplHibernate"/>
-    <tx:annotation-driven transaction-manager="txManagerHibernate"/>
+    <!--<bean id="userDAO" class="ua.org.gostroy.dao.UserImplHibernate"/>-->
+    <!--<tx:annotation-driven transaction-manager="txManagerHibernate"/>-->
 
-    <!--<bean id="userDAO" class="ua.org.gostroy.dao.UserImplJPA"/>-->
-    <!--<tx:annotation-driven transaction-manager="txManagerJPA"/>-->
+    <bean id="userDAO" class="ua.org.gostroy.dao.UserImplJPA"/>
+    <tx:annotation-driven transaction-manager="txManagerJPA"/>
 
-    <!--<bean id="userDAO" class="ua.org.gostroy.dao.UserImplJDBC"/>-->
+    <!--<bean id="userDAOJDBC" class="ua.org.gostroy.dao.UserImplJDBC"/>-->
 
-    <!--<bean id="userRepository" class="ua.org.gostroy.repositories.UserRepository"/>-->
-    <!--<tx:annotation-driven transaction-manager="txManagerJPA"/>-->
+    <jpa:repositories base-package="ua.org.gostroy.repositories" transaction-manager-ref="txManagerJPA"/>
+    <!--<jpa:repositories base-package="ua.org.gostroy.repositories" transaction-manager-ref="txManagerHibernate"/>-->
+
 
     <!--#############################################-->
 </beans>
