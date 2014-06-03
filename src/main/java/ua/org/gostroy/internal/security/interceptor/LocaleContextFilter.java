@@ -1,4 +1,4 @@
-package ua.org.gostroy.security.interceptor;
+package ua.org.gostroy.internal.security.interceptor;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;

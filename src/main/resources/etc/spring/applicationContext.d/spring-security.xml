@@ -106,7 +106,7 @@
         <beans:property name="defaultTargetUrl" value="/user/list" />
     </beans:bean>
 
-    <beans:bean id="localeContextFilter" class="ua.org.gostroy.security.interceptor.LocaleContextFilter" >
+    <beans:bean id="localeContextFilter" class="ua.org.gostroy.internal.security.interceptor.LocaleContextFilter" >
         <beans:property name="localeResolver" ref="localeResolver" />
     </beans:bean>
 

@@ -3,8 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--<tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>-->
@@ -19,24 +21,36 @@
         <property name="testWhileIdle" value="true"/>
         <property name="removeAbandoned" value="true"/>
     </bean>
-<!--
-    <bean id="dataSourceHSQLDB" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.hsqldb.driverClassName}"/>
-        <property name="url" value="${jdbc.hsqldb.databaseurl}"/>
-        <property name="username" value="${jdbc.hsqldb.username}"/>
-        <property name="password" value="${jdbc.hsqldb.password}"/>
-    </bean>
-    <bean id="dataSourceH2" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="${jdbc.h2.driverClassName}"
-          p:url="${jdbc.h2.databaseurl}"
-          p:username="${jdbc.h2.username}"
-          p:password="${jdbc.h2.password}"
-    />
-    <bean id="transactionManagerSpring" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSourceHSQLDB"/>
-    </bean>
--->
 
+    <jdbc:embedded-database id="dataSource2" type="H2">
+        <jdbc:script location="classpath:/db/tplSpringDaoSchema.sql"/>
+        <jdbc:script location="classpath:/db/tplSpringDaoData.sql"/>
+    </jdbc:embedded-database>
+
+    <!--
+        <bean id="dataSourceHSQLDB" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="${jdbc.hsqldb.driverClassName}"/>
+            <property name="url" value="${jdbc.hsqldb.databaseurl}"/>
+            <property name="username" value="${jdbc.hsqldb.username}"/>
+            <property name="password" value="${jdbc.hsqldb.password}"/>
+        </bean>
+        <bean id="dataSourceH2" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+              p:driverClassName="${jdbc.h2.driverClassName}"
+              p:url="${jdbc.h2.databaseurl}"
+              p:username="${jdbc.h2.username}"
+              p:password="${jdbc.h2.password}"
+        />
+        <bean id="transactionManagerSpring" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSourceHSQLDB"/>
+        </bean>
+    -->
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="setupDb" class="ua.org.gostroy.internal.security.acl.DatabaseSeeder" >
+        <constructor-arg ref="jdbcTemplate" />
+    </bean>
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -44,7 +58,7 @@
         <property name="packagesToScan"
                   value="ua.org.gostroy.entity"/>
 <!--
-        &lt;!&ndash; to use Hibernate without packagesToScan &ndash;&gt;
+        <!-- to use Hibernate without packagesToScan -->
         <property name="configLocation" value="classpath:/etc/hibernate.cfg.xml" />
         <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
 -->
